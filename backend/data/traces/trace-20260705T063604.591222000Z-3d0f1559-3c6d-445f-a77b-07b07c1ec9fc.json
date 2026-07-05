@@ -1,0 +1,188 @@
+{
+  "id": "3d0f1559-3c6d-445f-a77b-07b07c1ec9fc",
+  "started_at": "2026-07-05T06:36:04.591222Z",
+  "ended_at": "2026-07-05T06:36:07.136103Z",
+  "nodes": [
+    {
+      "index": 1,
+      "started_at": "2026-07-05T06:36:04.591786Z",
+      "kind": "model",
+      "name": "ChatModel",
+      "type": "DeepSeek",
+      "component": "ChatModel",
+      "model": "deepseek-chat",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是一个联盟撮合智能体，负责围绕联盟撮合场景与用户对话。\n\n当用户询问简单问题、概念解释、规则说明、流程咨询或需要普通对话时，你可以直接回答，并保持表达清晰、简洁、准确。\n\n当用户要求你查询或操作联盟撮合相关的模拟第三方系统时，应优先使用可用工具完成，例如查询 IM 会话、读取会话消息、发送 IM 消息、推荐商品、检查样品资格、加选品车、申请样品、购买样品、查询履约状态等。\n\n当用户要求执行工具范围之外的实际操作时，例如修改不存在的配置、操作未提供的外部系统、创建未支持的订单类型等，你需要明确告诉用户：当前没有此能力，暂时无法代替用户完成该操作。\n\n如果用户的问题信息不足，你需要直接说明缺少哪些信息，并引导用户补充必要上下文。\n\n不要编造系统能力。只有工具调用成功后，才可以说明对应操作已经完成。\n"
+          },
+          {
+            "role": "system",
+            "content": "当前登录用户ID是 user_1001。调用第三方工具时，user_id 参数必须使用这个用户ID。"
+          },
+          {
+            "role": "user",
+            "content": "你能帮我干什么"
+          },
+          {
+            "role": "assistant",
+            "content": "当然可以！我是联盟撮合智能体，主要能帮你做以下几类事情：\n\n---\n\n### 🔍 **查询与信息获取**\n1. **查看你的IM会话列表** —— 查你有哪些聊天对话\n2. **读取IM会话消息** —— 查看某场对话中的聊天内容\n3. **查询履约状态** —— 查看商品或订单的履约进度\n4. **检查样品资格** —— 查看某个商品是否符合免费样品申请条件\n\n### 🛒 **商品与样品操作**\n5. **推荐商品** —— 根据你的情况推荐合适的商品\n6. **加选品车** —— 把商品加入你的选品车\n7. **申请免费样品** —— 申请免费样品（需先检查资格）\n8. **购买付费样品** —— 购买需要付费的样品\n\n### 💬 **IM消息发送**\n9. **发送IM消息** —— 向某个会话发送文本消息\n\n---\n\n### 举个🌰，你可以这样问我：\n- “帮我推荐一些商品”\n- “看看我有哪些IM会话”\n- “把商品ID为P001、P002的商品加选品车”\n- “帮我查一下商品P003能不能申请免费样品”\n- “看看我的履约状态”\n\n直接说出你的需求，我来帮你处理！ 😊"
+          },
+          {
+            "role": "user",
+            "content": "查看我有哪些会话"
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "ended_at": "2026-07-05T06:36:05.547006Z",
+      "kind": "model_tool_call",
+      "name": "ChatModel",
+      "type": "DeepSeek",
+      "component": "ChatModel",
+      "model": "deepseek-chat",
+      "output": {
+        "message": {
+          "role": "assistant",
+          "content": "好的，我来帮你查看当前的IM会话列表。",
+          "tool_calls": [
+            {
+              "id": "call_00_8EsAVKEPOew0J2b8ceOM6786",
+              "type": "function",
+              "name": "third_list_im_conversations",
+              "arguments": "{\"user_id\": \"user_1001\"}"
+            }
+          ]
+        },
+        "usage": {
+          "PromptTokens": 1512,
+          "PromptTokenDetails": {
+            "CachedTokens": 1408
+          },
+          "CompletionTokens": 61,
+          "TotalTokens": 1573,
+          "completion_token_details": {}
+        }
+      }
+    },
+    {
+      "index": 3,
+      "started_at": "2026-07-05T06:36:05.547118Z",
+      "kind": "tools_node_start",
+      "name": "ToolNode",
+      "component": "ToolsNode",
+      "input": {
+        "role": "assistant",
+        "content": "好的，我来帮你查看当前的IM会话列表。",
+        "tool_calls": [
+          {
+            "id": "call_00_8EsAVKEPOew0J2b8ceOM6786",
+            "type": "function",
+            "name": "third_list_im_conversations",
+            "arguments": "{\"user_id\": \"user_1001\"}"
+          }
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "started_at": "2026-07-05T06:36:05.547144Z",
+      "kind": "tool_call",
+      "name": "third_list_im_conversations",
+      "type": "toolHelper",
+      "component": "Tool",
+      "input": {
+        "arguments_in_json": "{\"user_id\": \"user_1001\"}"
+      }
+    },
+    {
+      "index": 5,
+      "ended_at": "2026-07-05T06:36:05.554718Z",
+      "kind": "tool_result",
+      "name": "third_list_im_conversations",
+      "type": "toolHelper",
+      "component": "Tool",
+      "output": {
+        "response": "{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"conversation_ids\\\":[\\\"conv_im_3001\\\",\\\"conv_im_3002\\\",\\\"conv_im_3005\\\",\\\"conv_im_3006\\\",\\\"conv_im_3007\\\"]}\"}]}",
+        "tool_output": null
+      }
+    },
+    {
+      "index": 6,
+      "started_at": "2026-07-05T06:36:05.554964Z",
+      "kind": "model",
+      "name": "ChatModel",
+      "type": "DeepSeek",
+      "component": "ChatModel",
+      "model": "deepseek-chat",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是一个联盟撮合智能体，负责围绕联盟撮合场景与用户对话。\n\n当用户询问简单问题、概念解释、规则说明、流程咨询或需要普通对话时，你可以直接回答，并保持表达清晰、简洁、准确。\n\n当用户要求你查询或操作联盟撮合相关的模拟第三方系统时，应优先使用可用工具完成，例如查询 IM 会话、读取会话消息、发送 IM 消息、推荐商品、检查样品资格、加选品车、申请样品、购买样品、查询履约状态等。\n\n当用户要求执行工具范围之外的实际操作时，例如修改不存在的配置、操作未提供的外部系统、创建未支持的订单类型等，你需要明确告诉用户：当前没有此能力，暂时无法代替用户完成该操作。\n\n如果用户的问题信息不足，你需要直接说明缺少哪些信息，并引导用户补充必要上下文。\n\n不要编造系统能力。只有工具调用成功后，才可以说明对应操作已经完成。\n"
+          },
+          {
+            "role": "system",
+            "content": "当前登录用户ID是 user_1001。调用第三方工具时，user_id 参数必须使用这个用户ID。"
+          },
+          {
+            "role": "user",
+            "content": "你能帮我干什么"
+          },
+          {
+            "role": "assistant",
+            "content": "当然可以！我是联盟撮合智能体，主要能帮你做以下几类事情：\n\n---\n\n### 🔍 **查询与信息获取**\n1. **查看你的IM会话列表** —— 查你有哪些聊天对话\n2. **读取IM会话消息** —— 查看某场对话中的聊天内容\n3. **查询履约状态** —— 查看商品或订单的履约进度\n4. **检查样品资格** —— 查看某个商品是否符合免费样品申请条件\n\n### 🛒 **商品与样品操作**\n5. **推荐商品** —— 根据你的情况推荐合适的商品\n6. **加选品车** —— 把商品加入你的选品车\n7. **申请免费样品** —— 申请免费样品（需先检查资格）\n8. **购买付费样品** —— 购买需要付费的样品\n\n### 💬 **IM消息发送**\n9. **发送IM消息** —— 向某个会话发送文本消息\n\n---\n\n### 举个🌰，你可以这样问我：\n- “帮我推荐一些商品”\n- “看看我有哪些IM会话”\n- “把商品ID为P001、P002的商品加选品车”\n- “帮我查一下商品P003能不能申请免费样品”\n- “看看我的履约状态”\n\n直接说出你的需求，我来帮你处理！ 😊"
+          },
+          {
+            "role": "user",
+            "content": "查看我有哪些会话"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，我来帮你查看当前的IM会话列表。",
+            "tool_calls": [
+              {
+                "id": "call_00_8EsAVKEPOew0J2b8ceOM6786",
+                "type": "function",
+                "name": "third_list_im_conversations",
+                "arguments": "{\"user_id\": \"user_1001\"}"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "content": "{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"conversation_ids\\\":[\\\"conv_im_3001\\\",\\\"conv_im_3002\\\",\\\"conv_im_3005\\\",\\\"conv_im_3006\\\",\\\"conv_im_3007\\\"]}\"}]}",
+            "tool_call_id": "call_00_8EsAVKEPOew0J2b8ceOM6786"
+          }
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "ended_at": "2026-07-05T06:36:07.135947Z",
+      "kind": "model_answer",
+      "name": "ChatModel",
+      "type": "DeepSeek",
+      "component": "ChatModel",
+      "model": "deepseek-chat",
+      "output": {
+        "message": {
+          "role": "assistant",
+          "content": "你当前共有 **5个IM会话**，会话ID如下：\n\n| 序号 | 会话ID |\n|:---:|:------:|\n| 1 | `conv_im_3001` |\n| 2 | `conv_im_3002` |\n| 3 | `conv_im_3005` |\n| 4 | `conv_im_3006` |\n| 5 | `conv_im_3007` |\n\n你想查看哪个会话的具体消息内容？告诉我会话ID，我帮你读取里面的聊天记录！😊"
+        },
+        "usage": {
+          "PromptTokens": 1646,
+          "PromptTokenDetails": {
+            "CachedTokens": 1536
+          },
+          "CompletionTokens": 117,
+          "TotalTokens": 1763,
+          "completion_token_details": {}
+        }
+      }
+    }
+  ]
+}

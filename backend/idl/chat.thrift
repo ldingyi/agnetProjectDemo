@@ -1,0 +1,76 @@
+namespace go chat
+
+struct ChatMessage {
+    1: string role
+    2: string content
+}
+
+struct ChatRequest {
+    1: string conversation_id
+    2: list<ChatMessage> messages
+    3: string user_id
+}
+
+struct ChatResponse {
+    1: string conversation_id
+    2: string message
+}
+
+struct ChatStreamChunk {
+    1: string conversation_id
+    2: string delta
+    3: bool done
+}
+
+struct SessionInfo {
+    1: string id
+    2: string title
+    3: string created_at
+    4: string updated_at
+}
+
+struct CreateSessionRequest {
+    1: string user_id
+}
+
+struct CreateSessionResponse {
+    1: SessionInfo session
+}
+
+struct ListSessionsRequest {
+    1: string user_id
+}
+
+struct ListSessionsResponse {
+    1: list<SessionInfo> sessions
+}
+
+struct GetSessionRequest {
+    1: string id
+    2: string user_id
+}
+
+struct GetSessionResponse {
+    1: SessionInfo session
+    2: list<ChatMessage> messages
+}
+
+struct LoginRequest {
+    1: string user_id
+}
+
+struct LoginResponse {
+    1: bool success
+    2: string user_id
+    3: string username
+    4: string message
+}
+
+service AgentChatService {
+    LoginResponse Login(1: LoginRequest req)
+    ChatResponse Chat(1: ChatRequest req)
+    ChatStreamChunk ChatStream(1: ChatRequest req) (streaming.mode="server")
+    CreateSessionResponse CreateSession(1: CreateSessionRequest req)
+    ListSessionsResponse ListSessions(1: ListSessionsRequest req)
+    GetSessionResponse GetSession(1: GetSessionRequest req)
+}

@@ -1,0 +1,630 @@
+{
+  "users": [
+    {
+      "user_id": "user_1001",
+      "name": "林晓",
+      "level": "gold",
+      "fans_count": 238000,
+      "main_category": "beauty"
+    },
+    {
+      "user_id": "user_1002",
+      "name": "陈野",
+      "level": "silver",
+      "fans_count": 58000,
+      "main_category": "home"
+    },
+    {
+      "user_id": "user_1003",
+      "name": "周禾",
+      "level": "new",
+      "fans_count": 8200,
+      "main_category": "food"
+    }
+  ],
+  "products": [
+    {
+      "product_id": "prod_2001",
+      "name": "轻润保湿精华",
+      "commission": 18.5,
+      "category": "beauty",
+      "price": 129,
+      "stock": 3200
+    },
+    {
+      "product_id": "prod_2002",
+      "name": "便携折叠料理锅",
+      "commission": 22,
+      "category": "home",
+      "price": 199,
+      "stock": 820
+    },
+    {
+      "product_id": "prod_2003",
+      "name": "低脂燕麦脆礼盒",
+      "commission": 15,
+      "category": "food",
+      "price": 89,
+      "stock": 5600
+    },
+    {
+      "product_id": "prod_2004",
+      "name": "智能颈部按摩仪",
+      "commission": 28,
+      "category": "health",
+      "price": 299,
+      "stock": 180
+    },
+    {
+      "product_id": "prod_2005",
+      "name": "防晒隔离乳",
+      "commission": 20.5,
+      "category": "beauty",
+      "price": 109,
+      "stock": 1400
+    }
+  ],
+  "recommendations": {
+    "user_1001": [
+      "prod_2001",
+      "prod_2005",
+      "prod_2004"
+    ],
+    "user_1002": [
+      "prod_2002",
+      "prod_2004",
+      "prod_2003"
+    ],
+    "user_1003": [
+      "prod_2003",
+      "prod_2002"
+    ]
+  },
+  "im_conversations": [
+    {
+      "user_id": "user_1001",
+      "conversation_id": "conv_im_3001",
+      "merchant_id": "merchant_beauty_01",
+      "merchant_name": "美妆品牌官方旗舰店",
+      "scenario": "merchant_invited_user_no_reply",
+      "messages": [
+        {
+          "message_id": "msg_3001_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "邀请你参与轻润保湿精华新品首发推广，支持免费申样。",
+          "send_time": "2026-07-03T10:30:00+08:00",
+          "invitation_card": {
+            "intro": "新品保湿精华首发，适合美妆护肤内容，支持免费申样和专属素材包。",
+            "products": [
+              {
+                "product_id": "prod_2001",
+                "name": "轻润保湿精华",
+                "commission": 18.5
+              },
+              {
+                "product_id": "prod_2005",
+                "name": "防晒隔离乳",
+                "commission": 20.5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "user_id": "user_1001",
+      "conversation_id": "conv_im_3002",
+      "merchant_id": "merchant_health_01",
+      "merchant_name": "健康生活馆",
+      "scenario": "user_asked_commission_and_free_sample_replied",
+      "messages": [
+        {
+          "message_id": "msg_3002_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "邀请你测评智能颈部按摩仪，佣金高，样品名额有限。",
+          "send_time": "2026-07-02T16:20:00+08:00",
+          "invitation_card": {
+            "intro": "智能颈部按摩仪适合办公、健康生活类内容，活动期有达人专属佣金。",
+            "products": [
+              {
+                "product_id": "prod_2004",
+                "name": "智能颈部按摩仪",
+                "commission": 28
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3002_002",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "这个品可以给我专属佣金吗？另外是否能免费申样？",
+          "send_time": "2026-07-02T16:43:00+08:00"
+        },
+        {
+          "message_id": "msg_3002_003",
+          "sender": "MERCHANT",
+          "message_type": "TEXT",
+          "content": "可以申请专属佣金，当前可给到 32%。免费样品名额暂时满了，也可以走买样报销流程。",
+          "send_time": "2026-07-02T17:05:00+08:00"
+        },
+        {
+          "message_id": "msg_3002_004",
+          "sender": "MERCHANT",
+          "message_type": "CONTACT_CARD",
+          "content": "这是品牌商务联系方式，方便后续同步脚本和素材。",
+          "send_time": "2026-07-02T17:06:00+08:00",
+          "contact_card": {
+            "name": "品牌商务-阿宁",
+            "phone": "13800000001",
+            "wechat": "brand_aning"
+          }
+        }
+      ]
+    },
+    {
+      "user_id": "user_1001",
+      "conversation_id": "conv_im_3005",
+      "merchant_id": "merchant_beauty_02",
+      "merchant_name": "清透防晒专营店",
+      "scenario": "merchant_followed_up_after_no_reply",
+      "messages": [
+        {
+          "message_id": "msg_3005_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "防晒隔离乳夏季活动邀约，佣金 20.5%，可提供脚本参考。",
+          "send_time": "2026-07-01T11:00:00+08:00",
+          "invitation_card": {
+            "intro": "夏季防晒重点推广，适合通勤、户外、防晒测评内容。",
+            "products": [
+              {
+                "product_id": "prod_2005",
+                "name": "防晒隔离乳",
+                "commission": 20.5
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3005_002",
+          "sender": "MERCHANT",
+          "message_type": "TEXT",
+          "content": "如果你这周有排期，我们可以优先安排寄样。",
+          "send_time": "2026-07-02T09:30:00+08:00"
+        }
+      ]
+    },
+    {
+      "user_id": "user_1001",
+      "conversation_id": "conv_im_3006",
+      "merchant_id": "merchant_food_02",
+      "merchant_name": "轻卡代餐品牌",
+      "scenario": "user_rejected_due_to_category_mismatch",
+      "messages": [
+        {
+          "message_id": "msg_3006_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "邀请你推广低脂燕麦脆礼盒，支持免费样品。",
+          "send_time": "2026-07-02T12:10:00+08:00",
+          "invitation_card": {
+            "intro": "低脂健康零食，主打下午茶和健身轻食场景。",
+            "products": [
+              {
+                "product_id": "prod_2003",
+                "name": "低脂燕麦脆礼盒",
+                "commission": 15
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3006_002",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "我近期主要做美妆护肤，这个食品类暂时不接。",
+          "send_time": "2026-07-02T13:05:00+08:00"
+        },
+        {
+          "message_id": "msg_3006_003",
+          "sender": "MERCHANT",
+          "message_type": "TEXT",
+          "content": "了解，后续如果有护肤联名礼盒再联系你。",
+          "send_time": "2026-07-02T13:20:00+08:00"
+        }
+      ]
+    },
+    {
+      "user_id": "user_1001",
+      "conversation_id": "conv_im_3007",
+      "merchant_id": "merchant_beauty_03",
+      "merchant_name": "高端护肤旗舰店",
+      "scenario": "user_requested_exclusive_commission_no_reply",
+      "messages": [
+        {
+          "message_id": "msg_3007_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "高客单护肤精华邀约，首单佣金 18.5%。",
+          "send_time": "2026-07-04T09:00:00+08:00",
+          "invitation_card": {
+            "intro": "高客单精华新品测试，适合成分党和功效护肤内容。",
+            "products": [
+              {
+                "product_id": "prod_2001",
+                "name": "轻润保湿精华",
+                "commission": 18.5
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3007_002",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "如果我排一条测评视频，可以给到专属佣金 25% 吗？",
+          "send_time": "2026-07-04T09:18:00+08:00"
+        }
+      ]
+    },
+    {
+      "user_id": "user_1002",
+      "conversation_id": "conv_im_3003",
+      "merchant_id": "merchant_home_01",
+      "merchant_name": "家居精选联盟",
+      "scenario": "user_asked_free_sample_no_reply",
+      "messages": [
+        {
+          "message_id": "msg_3003_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "邀请你参加便携折叠料理锅短视频带货活动。",
+          "send_time": "2026-07-01T09:00:00+08:00",
+          "invitation_card": {
+            "intro": "厨房小家电爆品，适合租房、户外、轻食场景内容。",
+            "products": [
+              {
+                "product_id": "prod_2002",
+                "name": "便携折叠料理锅",
+                "commission": 22
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3003_002",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "我可以申请免费样品吗？如果可以，大概多久发出？",
+          "send_time": "2026-07-01T10:12:00+08:00"
+        }
+      ]
+    },
+    {
+      "user_id": "user_1002",
+      "conversation_id": "conv_im_3008",
+      "merchant_id": "merchant_home_02",
+      "merchant_name": "厨房好物旗舰店",
+      "scenario": "merchant_sent_contact_card_after_user_interest",
+      "messages": [
+        {
+          "message_id": "msg_3008_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "便携折叠料理锅正在招募家居类达人，可免费申样。",
+          "send_time": "2026-07-02T08:40:00+08:00",
+          "invitation_card": {
+            "intro": "一人食、租房、小厨房场景爆款，近期投放预算充足。",
+            "products": [
+              {
+                "product_id": "prod_2002",
+                "name": "便携折叠料理锅",
+                "commission": 22
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3008_002",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "我可以先看一下素材和达人价格政策吗？",
+          "send_time": "2026-07-02T09:05:00+08:00"
+        },
+        {
+          "message_id": "msg_3008_003",
+          "sender": "MERCHANT",
+          "message_type": "CONTACT_CARD",
+          "content": "可以，这是对接商务联系方式。",
+          "send_time": "2026-07-02T09:12:00+08:00",
+          "contact_card": {
+            "name": "家居商务-小楠",
+            "phone": "13800000002",
+            "wechat": "home_xiaonan"
+          }
+        }
+      ]
+    },
+    {
+      "user_id": "user_1002",
+      "conversation_id": "conv_im_3009",
+      "merchant_id": "merchant_health_02",
+      "merchant_name": "颈椎护理品牌店",
+      "scenario": "free_sample_denied_but_paid_sample_suggested",
+      "messages": [
+        {
+          "message_id": "msg_3009_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "智能颈部按摩仪达人合作邀约，佣金 28%。",
+          "send_time": "2026-07-03T15:00:00+08:00",
+          "invitation_card": {
+            "intro": "健康类目高转化商品，适合办公室放松和父母礼物选题。",
+            "products": [
+              {
+                "product_id": "prod_2004",
+                "name": "智能颈部按摩仪",
+                "commission": 28
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3009_002",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "这个能免费申样吗？我想先体验再决定。",
+          "send_time": "2026-07-03T15:20:00+08:00"
+        },
+        {
+          "message_id": "msg_3009_003",
+          "sender": "MERCHANT",
+          "message_type": "TEXT",
+          "content": "你的主营类目暂时不符合免费申样规则，但可以买样，出单后支持返样品成本。",
+          "send_time": "2026-07-03T16:00:00+08:00"
+        }
+      ]
+    },
+    {
+      "user_id": "user_1002",
+      "conversation_id": "conv_im_3010",
+      "merchant_id": "merchant_food_03",
+      "merchant_name": "办公室零食铺",
+      "scenario": "merchant_text_only_offer_user_no_reply",
+      "messages": [
+        {
+          "message_id": "msg_3010_001",
+          "sender": "MERCHANT",
+          "message_type": "TEXT",
+          "content": "你好，我们有一款低脂燕麦脆想找家居生活类达人做办公室零食场景，可以聊聊吗？",
+          "send_time": "2026-07-04T10:15:00+08:00"
+        }
+      ]
+    },
+    {
+      "user_id": "user_1003",
+      "conversation_id": "conv_im_3004",
+      "merchant_id": "merchant_food_01",
+      "merchant_name": "轻食零食品牌",
+      "scenario": "contact_exchange_and_sample_discussion",
+      "messages": [
+        {
+          "message_id": "msg_3004_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "邀请你试吃低脂燕麦脆礼盒，可申请免费样品。",
+          "send_time": "2026-07-03T18:45:00+08:00",
+          "invitation_card": {
+            "intro": "低脂燕麦脆礼盒，适合早餐、健身、办公室零食内容。",
+            "products": [
+              {
+                "product_id": "prod_2003",
+                "name": "低脂燕麦脆礼盒",
+                "commission": 15
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3004_002",
+          "sender": "USER",
+          "message_type": "CONTACT_CARD",
+          "content": "这是我的收件联系方式，方便寄样。",
+          "send_time": "2026-07-03T19:02:00+08:00",
+          "contact_card": {
+            "name": "周禾",
+            "phone": "13900000003",
+            "wechat": "zhouhe_food"
+          }
+        },
+        {
+          "message_id": "msg_3004_003",
+          "sender": "MERCHANT",
+          "message_type": "TEXT",
+          "content": "收到，我们先帮你提交免费申样审核，审核通过后预计 48 小时内发货。",
+          "send_time": "2026-07-03T19:15:00+08:00"
+        }
+      ]
+    },
+    {
+      "user_id": "user_1003",
+      "conversation_id": "conv_im_3011",
+      "merchant_id": "merchant_home_03",
+      "merchant_name": "小家电集合店",
+      "scenario": "new_user_asked_requirements_merchant_replied",
+      "messages": [
+        {
+          "message_id": "msg_3011_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "便携折叠料理锅合作邀约，新达人也可报名。",
+          "send_time": "2026-07-02T14:00:00+08:00",
+          "invitation_card": {
+            "intro": "新人达人可参与，适合做一人食和宿舍小厨房内容。",
+            "products": [
+              {
+                "product_id": "prod_2002",
+                "name": "便携折叠料理锅",
+                "commission": 22
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3011_002",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "我粉丝量还比较少，可以参加吗？需要什么内容要求？",
+          "send_time": "2026-07-02T14:22:00+08:00"
+        },
+        {
+          "message_id": "msg_3011_003",
+          "sender": "MERCHANT",
+          "message_type": "TEXT",
+          "content": "可以参加，要求 30 秒以上原创视频，挂车不少于 7 天，内容突出折叠收纳和一人食场景。",
+          "send_time": "2026-07-02T14:45:00+08:00"
+        }
+      ]
+    },
+    {
+      "user_id": "user_1003",
+      "conversation_id": "conv_im_3012",
+      "merchant_id": "merchant_food_04",
+      "merchant_name": "健康早餐品牌",
+      "scenario": "user_sent_contact_card_merchant_no_reply",
+      "messages": [
+        {
+          "message_id": "msg_3012_001",
+          "sender": "MERCHANT",
+          "message_type": "INVITATION_CARD",
+          "content": "低脂燕麦脆早餐场景合作，可免费申样。",
+          "send_time": "2026-07-04T07:50:00+08:00",
+          "invitation_card": {
+            "intro": "早餐代餐和健身轻食场景，适合图文和短视频。",
+            "products": [
+              {
+                "product_id": "prod_2003",
+                "name": "低脂燕麦脆礼盒",
+                "commission": 15
+              }
+            ]
+          }
+        },
+        {
+          "message_id": "msg_3012_002",
+          "sender": "USER",
+          "message_type": "CONTACT_CARD",
+          "content": "我有兴趣，这是我的联系方式。",
+          "send_time": "2026-07-04T08:05:00+08:00",
+          "contact_card": {
+            "name": "周禾",
+            "phone": "13900000003",
+            "wechat": "zhouhe_food"
+          }
+        }
+      ]
+    },
+    {
+      "user_id": "user_1003",
+      "conversation_id": "conv_im_3013",
+      "merchant_id": "merchant_beauty_04",
+      "merchant_name": "平价美妆集合店",
+      "scenario": "user_asks_if_category_allowed_no_reply",
+      "messages": [
+        {
+          "message_id": "msg_3013_001",
+          "sender": "MERCHANT",
+          "message_type": "TEXT",
+          "content": "你好，我们有防晒隔离乳在招募达人，佣金 20.5%，可以合作吗？",
+          "send_time": "2026-07-03T21:00:00+08:00"
+        },
+        {
+          "message_id": "msg_3013_002",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "我主要做食品内容，偶尔发生活方式，这样可以接美妆防晒吗？",
+          "send_time": "2026-07-03T21:08:00+08:00"
+        }
+      ]
+    }
+  ],
+  "user_selection_carts": {
+    "user_1001": [
+      "prod_2001"
+    ],
+    "user_1002": [],
+    "user_1003": [
+      "prod_2003"
+    ]
+  },
+  "free_sample_applications": {
+    "user_1001": [],
+    "user_1002": [],
+    "user_1003": []
+  },
+  "buy_sample_orders": {
+    "user_1001": [],
+    "user_1002": [],
+    "user_1003": []
+  },
+  "product_rules": {
+    "prod_2001": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "new",
+      "require_category_match_for_selection": false,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "silver",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 3,
+      "paid_sample_enabled": true,
+      "min_paid_sample_level": "new"
+    },
+    "prod_2002": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "silver",
+      "require_category_match_for_selection": false,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "silver",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 2,
+      "paid_sample_enabled": true,
+      "min_paid_sample_level": "new"
+    },
+    "prod_2003": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "new",
+      "require_category_match_for_selection": false,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "new",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 5,
+      "paid_sample_enabled": true,
+      "min_paid_sample_level": "new"
+    },
+    "prod_2004": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "silver",
+      "require_category_match_for_selection": true,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "gold",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 0,
+      "paid_sample_enabled": true,
+      "min_paid_sample_level": "silver"
+    },
+    "prod_2005": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "new",
+      "require_category_match_for_selection": false,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "silver",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 1,
+      "paid_sample_enabled": false,
+      "min_paid_sample_level": "gold"
+    }
+  }
+}
