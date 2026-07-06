@@ -80,6 +80,82 @@
       "prod_2002"
     ]
   },
+  "user_selection_carts": {
+    "user_1001": [
+      "prod_2001"
+    ],
+    "user_1002": [],
+    "user_1003": [
+      "prod_2003"
+    ]
+  },
+  "free_sample_applications": {
+    "user_1001": [],
+    "user_1002": [],
+    "user_1003": []
+  },
+  "buy_sample_orders": {
+    "user_1001": [],
+    "user_1002": [],
+    "user_1003": []
+  },
+  "product_rules": {
+    "prod_2001": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "new",
+      "require_category_match_for_selection": false,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "silver",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 3,
+      "paid_sample_enabled": true,
+      "min_paid_sample_level": "new"
+    },
+    "prod_2002": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "silver",
+      "require_category_match_for_selection": false,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "silver",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 2,
+      "paid_sample_enabled": true,
+      "min_paid_sample_level": "new"
+    },
+    "prod_2003": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "new",
+      "require_category_match_for_selection": false,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "new",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 5,
+      "paid_sample_enabled": true,
+      "min_paid_sample_level": "new"
+    },
+    "prod_2004": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "silver",
+      "require_category_match_for_selection": true,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "gold",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 0,
+      "paid_sample_enabled": true,
+      "min_paid_sample_level": "silver"
+    },
+    "prod_2005": {
+      "selection_cart_enabled": true,
+      "min_selection_level": "new",
+      "require_category_match_for_selection": false,
+      "free_sample_enabled": true,
+      "min_free_sample_level": "silver",
+      "require_category_match_for_free_sample": true,
+      "free_sample_quota": 1,
+      "paid_sample_enabled": false,
+      "min_paid_sample_level": "gold"
+    }
+  },
   "im_conversations": [
     {
       "user_id": "user_1001",
@@ -161,6 +237,20 @@
             "phone": "13800000001",
             "wechat": "brand_aning"
           }
+        },
+        {
+          "message_id": "msg_1783335663569272000",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "你好，这是我的联系方式，方便后续沟通合作~ \n电话：16603860497\n微信：WeChat",
+          "send_time": "2026-07-06T19:01:03+08:00"
+        },
+        {
+          "message_id": "msg_1783337260219850000",
+          "sender": "USER",
+          "message_type": "TEXT",
+          "content": "你好阿宁，我刚想把智能颈部按摩仪加入选品车，但提示类目不匹配，无法加入。请问能不能帮忙设置一下商品类目的限制？这样我这边就能正常加品了，谢谢！",
+          "send_time": "2026-07-06T19:27:40+08:00"
         }
       ]
     },
@@ -550,81 +640,5 @@
         }
       ]
     }
-  ],
-  "user_selection_carts": {
-    "user_1001": [
-      "prod_2001"
-    ],
-    "user_1002": [],
-    "user_1003": [
-      "prod_2003"
-    ]
-  },
-  "free_sample_applications": {
-    "user_1001": [],
-    "user_1002": [],
-    "user_1003": []
-  },
-  "buy_sample_orders": {
-    "user_1001": [],
-    "user_1002": [],
-    "user_1003": []
-  },
-  "product_rules": {
-    "prod_2001": {
-      "selection_cart_enabled": true,
-      "min_selection_level": "new",
-      "require_category_match_for_selection": false,
-      "free_sample_enabled": true,
-      "min_free_sample_level": "silver",
-      "require_category_match_for_free_sample": true,
-      "free_sample_quota": 3,
-      "paid_sample_enabled": true,
-      "min_paid_sample_level": "new"
-    },
-    "prod_2002": {
-      "selection_cart_enabled": true,
-      "min_selection_level": "silver",
-      "require_category_match_for_selection": false,
-      "free_sample_enabled": true,
-      "min_free_sample_level": "silver",
-      "require_category_match_for_free_sample": true,
-      "free_sample_quota": 2,
-      "paid_sample_enabled": true,
-      "min_paid_sample_level": "new"
-    },
-    "prod_2003": {
-      "selection_cart_enabled": true,
-      "min_selection_level": "new",
-      "require_category_match_for_selection": false,
-      "free_sample_enabled": true,
-      "min_free_sample_level": "new",
-      "require_category_match_for_free_sample": true,
-      "free_sample_quota": 5,
-      "paid_sample_enabled": true,
-      "min_paid_sample_level": "new"
-    },
-    "prod_2004": {
-      "selection_cart_enabled": true,
-      "min_selection_level": "silver",
-      "require_category_match_for_selection": true,
-      "free_sample_enabled": true,
-      "min_free_sample_level": "gold",
-      "require_category_match_for_free_sample": true,
-      "free_sample_quota": 0,
-      "paid_sample_enabled": true,
-      "min_paid_sample_level": "silver"
-    },
-    "prod_2005": {
-      "selection_cart_enabled": true,
-      "min_selection_level": "new",
-      "require_category_match_for_selection": false,
-      "free_sample_enabled": true,
-      "min_free_sample_level": "silver",
-      "require_category_match_for_free_sample": true,
-      "free_sample_quota": 1,
-      "paid_sample_enabled": false,
-      "min_paid_sample_level": "gold"
-    }
-  }
+  ]
 }
