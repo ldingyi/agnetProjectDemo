@@ -108,6 +108,8 @@ func NewEinoTraceHandler(cfg Config) callbacks.Handler {
 
 func (t *RequestTrace) Handler() callbacks.Handler {
 	return callbacktemplate.NewHandlerHelper().
+		Graph(t.composeHandler("graph")).
+		Lambda(t.composeHandler("lambda")).
 		ChatModel(t.modelHandler()).
 		Tool(t.toolHandler()).
 		ToolsNode(t.toolsNodeHandler()).
@@ -257,6 +259,44 @@ func (t *RequestTrace) toolHandler() *callbacktemplate.ToolCallbackHandler {
 			return ctx
 		},
 	}
+}
+
+func (t *RequestTrace) composeHandler(kind string) callbacks.Handler {
+	return callbacks.NewHandlerBuilder().
+		OnStartFn(func(ctx context.Context, info *callbacks.RunInfo, input callbacks.CallbackInput) context.Context {
+			t.addNode(traceNode{
+				StartedAt: nowTraceTime(),
+				Kind:      kind + "_start",
+				Name:      runName(info),
+				Type:      runType(info),
+				Component: runComponent(info),
+				Input:     compactTraceValue(input),
+			})
+			return ctx
+		}).
+		OnEndFn(func(ctx context.Context, info *callbacks.RunInfo, output callbacks.CallbackOutput) context.Context {
+			t.addNode(traceNode{
+				EndedAt:   nowTraceTime(),
+				Kind:      kind + "_end",
+				Name:      runName(info),
+				Type:      runType(info),
+				Component: runComponent(info),
+				Output:    compactTraceValue(output),
+			})
+			return ctx
+		}).
+		OnErrorFn(func(ctx context.Context, info *callbacks.RunInfo, err error) context.Context {
+			t.addNode(traceNode{
+				EndedAt:   nowTraceTime(),
+				Kind:      kind + "_error",
+				Name:      runName(info),
+				Type:      runType(info),
+				Component: runComponent(info),
+				Error:     err.Error(),
+			})
+			return ctx
+		}).
+		Build()
 }
 
 func (t *RequestTrace) toolsNodeHandler() *callbacktemplate.ToolsNodeCallbackHandlers {
@@ -425,6 +465,29 @@ func toTraceToolCalls(toolCalls []schema.ToolCall) []traceToolCall {
 		})
 	}
 	return result
+}
+
+func compactTraceValue(value any) any {
+	if value == nil {
+		return nil
+	}
+	data, err := json.Marshal(value)
+	if err != nil {
+		return value
+	}
+	const limit = 8000
+	if len(data) <= limit {
+		var decoded any
+		if err := json.Unmarshal(data, &decoded); err == nil {
+			return decoded
+		}
+		return string(data)
+	}
+	return map[string]any{
+		"truncated": true,
+		"size":      len(data),
+		"preview":   string(data[:limit]),
+	}
 }
 
 func modelDecision(msg *schema.Message) string {

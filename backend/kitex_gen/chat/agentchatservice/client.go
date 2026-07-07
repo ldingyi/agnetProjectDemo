@@ -20,6 +20,7 @@ type Client interface {
 	CreateSession(ctx context.Context, req *chat.CreateSessionRequest, callOptions ...callopt.Option) (r *chat.CreateSessionResponse, err error)
 	ListSessions(ctx context.Context, req *chat.ListSessionsRequest, callOptions ...callopt.Option) (r *chat.ListSessionsResponse, err error)
 	GetSession(ctx context.Context, req *chat.GetSessionRequest, callOptions ...callopt.Option) (r *chat.GetSessionResponse, err error)
+	GetIMChatSummary(ctx context.Context, req *chat.IMChatSummaryRequest, callOptions ...callopt.Option) (r *chat.IMChatSummaryResponse, err error)
 }
 
 // StreamClient is designed to provide Interface for Streaming APIs.
@@ -84,6 +85,11 @@ func (p *kAgentChatServiceClient) ListSessions(ctx context.Context, req *chat.Li
 func (p *kAgentChatServiceClient) GetSession(ctx context.Context, req *chat.GetSessionRequest, callOptions ...callopt.Option) (r *chat.GetSessionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetSession(ctx, req)
+}
+
+func (p *kAgentChatServiceClient) GetIMChatSummary(ctx context.Context, req *chat.IMChatSummaryRequest, callOptions ...callopt.Option) (r *chat.IMChatSummaryResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetIMChatSummary(ctx, req)
 }
 
 // NewStreamClient creates a stream client for the service's streaming APIs defined in IDL.

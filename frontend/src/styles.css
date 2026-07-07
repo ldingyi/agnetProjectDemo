@@ -140,7 +140,7 @@ h1 {
 
 .workspace {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto auto;
+  grid-template-rows: minmax(0, 1fr) auto auto auto;
   min-width: 0;
   height: 100vh;
   padding: 24px;
@@ -207,6 +207,119 @@ h1 {
   min-height: 22px;
   color: #b42318;
   font-size: 14px;
+}
+
+.system-prompt-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid #d8e0ea;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgb(15 23 42 / 6%);
+}
+
+.system-prompt-actions h2 {
+  color: #183446;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.summary-kicker {
+  margin-bottom: 4px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.summary-trigger {
+  min-height: 36px;
+  min-width: 88px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+
+.summary-message {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.summary-error,
+.summary-empty {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.summary-error {
+  color: #b42318;
+}
+
+.summary-sections {
+  display: grid;
+  gap: 14px;
+}
+
+.summary-section {
+  display: grid;
+  gap: 10px;
+}
+
+.summary-section h3 {
+  margin: 0;
+  color: #334155;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.summary-card {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid #d8e0ea;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.summary-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.summary-card-top strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #183446;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summary-card-top span,
+.summary-card small {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.summary-card p {
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .composer {
@@ -343,6 +456,14 @@ button:disabled {
   .workspace {
     height: calc(100vh - 94px);
     padding: 14px;
+  }
+
+  .system-prompt-actions {
+    align-items: stretch;
+  }
+
+  .summary-cards {
+    grid-template-columns: 1fr;
   }
 
   .composer {

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"io"
 	"net/http"
@@ -17,6 +18,14 @@ import (
 
 type ChatHandler struct {
 	rpc *rpc.Client
+}
+
+type chatStreamEvent struct {
+	ConversationID string `json:"conversation_id"`
+	Delta          string `json:"delta"`
+	Done           bool   `json:"done"`
+	ContentType    string `json:"content_type"`
+	Payload        string `json:"payload"`
 }
 
 func NewChatHandler(rpcClient *rpc.Client) *ChatHandler {
@@ -74,6 +83,8 @@ func (h *ChatHandler) ChatStream(ctx context.Context, c *app.RequestContext) {
 	c.SetStatusCode(consts.StatusOK)
 	c.Response.Header.Set("Cache-Control", "no-cache")
 	c.Response.Header.Set("Connection", "keep-alive")
+	c.Response.Header.SetContentType("text/event-stream; charset=utf-8")
+	c.Response.ImmediateHeaderFlush = true
 	writer := sse.NewWriter(c)
 	defer writer.Close()
 
@@ -86,7 +97,18 @@ func (h *ChatHandler) ChatStream(ctx context.Context, c *app.RequestContext) {
 			_ = writer.WriteEvent("", "error", []byte(err.Error()))
 			return
 		}
-		if err := writer.WriteEvent("", "message", []byte(chunk.GetDelta())); err != nil {
+		payload, err := json.Marshal(chatStreamEvent{
+			ConversationID: chunk.GetConversationId(),
+			Delta:          chunk.GetDelta(),
+			Done:           chunk.GetDone(),
+			ContentType:    chunk.GetContentType(),
+			Payload:        chunk.GetPayload(),
+		})
+		if err != nil {
+			_ = writer.WriteEvent("", "error", []byte("stream encode failed"))
+			return
+		}
+		if err := writer.WriteEvent("", "message", payload); err != nil {
 			return
 		}
 		if chunk.GetDone() {
@@ -123,6 +145,15 @@ func (h *ChatHandler) GetSession(ctx context.Context, c *app.RequestContext) {
 	c.JSON(consts.StatusOK, resp)
 }
 
+func (h *ChatHandler) GetIMChatSummary(ctx context.Context, c *app.RequestContext) {
+	resp, err := h.rpc.Chat().GetIMChatSummary(ctx, &chat.IMChatSummaryRequest{UserId: string(c.Query("user_id"))})
+	if err != nil {
+		c.JSON(consts.StatusInternalServerError, map[string]string{"error": "IM 聊天总结暂时不可用，请稍后再试。"})
+		return
+	}
+	c.JSON(consts.StatusOK, resp)
+}
+
 func RegisterRoutes(h *server.Hertz, chatHandler *ChatHandler) {
 	api := h.Group("/api")
 	api.POST("/login", chatHandler.Login)
@@ -131,6 +162,7 @@ func RegisterRoutes(h *server.Hertz, chatHandler *ChatHandler) {
 	api.POST("/sessions", chatHandler.CreateSession)
 	api.GET("/sessions", chatHandler.ListSessions)
 	api.GET("/sessions/:id", chatHandler.GetSession)
+	api.GET("/im/summary", chatHandler.GetIMChatSummary)
 }
 
 func Health(ctx context.Context, c *app.RequestContext) {

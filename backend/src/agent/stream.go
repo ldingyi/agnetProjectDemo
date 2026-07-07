@@ -112,3 +112,13 @@ func (s *StreamDeltaSender) SendDone() error {
 		Done:           true,
 	})
 }
+
+func (s *StreamDeltaSender) SendStructured(contentType string, payload string, content string) error {
+	return s.stream.Send(s.ctx, &chat.ChatStreamChunk{
+		ConversationId: s.conversationID,
+		Delta:          content,
+		Done:           false,
+		ContentType:    contentType,
+		Payload:        payload,
+	})
+}

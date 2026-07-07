@@ -3,6 +3,8 @@ package main
 import (
 	"agnet-project-demo/backend/internal/config"
 	chat "agnet-project-demo/backend/kitex_gen/chat/agentchatservice"
+	"agnet-project-demo/backend/src/application"
+	"context"
 	"log"
 	"net"
 
@@ -12,6 +14,8 @@ import (
 
 func main() {
 	cfg := config.Load()
+	ctx := context.Background()
+	application.InitEinoDev(ctx)
 
 	addr, err := net.ResolveTCPAddr("tcp", cfg.RPCAddr)
 	if err != nil {

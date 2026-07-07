@@ -17,6 +17,7 @@ import (
 func main() {
 	cfg := config.Load()
 	ctx := context.Background()
+	application.InitEinoDev(ctx)
 
 	addr, err := net.ResolveTCPAddr("tcp", cfg.RPCAddr)
 	if err != nil {

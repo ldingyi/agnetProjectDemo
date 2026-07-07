@@ -11,7 +11,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/cloudwego/eino/schema"
+	"agnet-project-demo/backend/kitex_gen/chat"
+
 	"github.com/google/uuid"
 )
 
@@ -28,7 +29,7 @@ type Session struct {
 	updatedAt time.Time
 	filePath  string
 	mu        sync.Mutex
-	messages  []*schema.Message
+	messages  []*chat.ChatMessage
 }
 
 type Store struct {
@@ -45,8 +46,8 @@ type fileHeader struct {
 }
 
 type messageLine struct {
-	Type    string          `json:"type"`
-	Message *schema.Message `json:"message"`
+	Type    string            `json:"type"`
+	Message *chat.ChatMessage `json:"message"`
 }
 
 func NewStore(dir string) (*Store, error) {
@@ -153,16 +154,16 @@ func (s *Session) Info() Info {
 	}
 }
 
-func (s *Session) Messages() []*schema.Message {
+func (s *Session) Messages() []*chat.ChatMessage {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	messages := make([]*schema.Message, len(s.messages))
+	messages := make([]*chat.ChatMessage, len(s.messages))
 	copy(messages, s.messages)
 	return messages
 }
 
-func (s *Session) Append(msg *schema.Message) error {
+func (s *Session) Append(msg *chat.ChatMessage) error {
 	if msg == nil {
 		return nil
 	}
@@ -203,7 +204,7 @@ func (s *Session) Append(msg *schema.Message) error {
 
 func (s *Session) titleLocked() string {
 	for _, msg := range s.messages {
-		if msg != nil && msg.Role == schema.User && strings.TrimSpace(msg.Content) != "" {
+		if msg != nil && msg.GetRole() == "user" && strings.TrimSpace(msg.GetContent()) != "" {
 			runes := []rune(strings.TrimSpace(msg.Content))
 			if len(runes) > 32 {
 				return string(runes[:32]) + "..."
@@ -234,7 +235,7 @@ func createSession(id string, filePath string) (*Session, error) {
 		createdAt: now,
 		updatedAt: now,
 		filePath:  filePath,
-		messages:  make([]*schema.Message, 0),
+		messages:  make([]*chat.ChatMessage, 0),
 	}, nil
 }
 
@@ -260,7 +261,7 @@ func loadSession(filePath string) (*Session, error) {
 		createdAt: header.CreatedAt,
 		updatedAt: header.UpdatedAt,
 		filePath:  filePath,
-		messages:  make([]*schema.Message, 0),
+		messages:  make([]*chat.ChatMessage, 0),
 	}
 	if stat, err := os.Stat(filePath); err == nil {
 		sess.updatedAt = stat.ModTime().UTC()

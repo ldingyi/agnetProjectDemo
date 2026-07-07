@@ -50,3 +50,8 @@ func (s *AgentChatServiceImpl) GetSession(ctx context.Context, req *chat.GetSess
 func (s *AgentChatServiceImpl) Login(ctx context.Context, req *chat.LoginRequest) (resp *chat.LoginResponse, err error) {
 	return s.inner.Login(ctx, req)
 }
+
+// GetIMChatSummary implements the AgentChatServiceImpl interface.
+func (s *AgentChatServiceImpl) GetIMChatSummary(ctx context.Context, req *chat.IMChatSummaryRequest) (resp *chat.IMChatSummaryResponse, err error) {
+	return s.inner.GetIMChatSummary(ctx, req)
+}

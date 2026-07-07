@@ -17,6 +17,7 @@ import (
 	"github.com/cloudwego/eino-ext/components/model/deepseek"
 	"github.com/cloudwego/eino/adk"
 	adkskill "github.com/cloudwego/eino/adk/middlewares/skill"
+	"github.com/cloudwego/eino/components/tool"
 	"github.com/cloudwego/eino/compose"
 	"github.com/cloudwego/eino/schema"
 )
@@ -27,6 +28,10 @@ type ChatModelAgent struct {
 }
 
 func NewChatModelAgent(ctx context.Context, cfg infrastructure.Config) (*ChatModelAgent, error) {
+	return NewChatModelAgentWithTools(ctx, cfg, nil)
+}
+
+func NewChatModelAgentWithTools(ctx context.Context, cfg infrastructure.Config, extraTools []tool.BaseTool) (*ChatModelAgent, error) {
 	if cfg.DeepSeek.APIKey == "" {
 		return nil, errors.New("DEEPSEEK_API_KEY is required")
 	}
@@ -43,6 +48,7 @@ func NewChatModelAgent(ctx context.Context, cfg infrastructure.Config) (*ChatMod
 	if err != nil {
 		return nil, err
 	}
+	mcpTools = append(mcpTools, extraTools...)
 	instruction, err := readAgentInstruction()
 	if err != nil {
 		return nil, err

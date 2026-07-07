@@ -11,8 +11,10 @@ import (
 )
 
 type ChatMessage struct {
-	Role    string `thrift:"role,1" frugal:"1,default,string" json:"role"`
-	Content string `thrift:"content,2" frugal:"2,default,string" json:"content"`
+	Role        string `thrift:"role,1" frugal:"1,default,string" json:"role"`
+	Content     string `thrift:"content,2" frugal:"2,default,string" json:"content"`
+	ContentType string `thrift:"content_type,3" frugal:"3,default,string" json:"content_type"`
+	Payload     string `thrift:"payload,4" frugal:"4,default,string" json:"payload"`
 }
 
 func NewChatMessage() *ChatMessage {
@@ -29,16 +31,32 @@ func (p *ChatMessage) GetRole() (v string) {
 func (p *ChatMessage) GetContent() (v string) {
 	return p.Content
 }
+
+func (p *ChatMessage) GetContentType() (v string) {
+	return p.ContentType
+}
+
+func (p *ChatMessage) GetPayload() (v string) {
+	return p.Payload
+}
 func (p *ChatMessage) SetRole(val string) {
 	p.Role = val
 }
 func (p *ChatMessage) SetContent(val string) {
 	p.Content = val
 }
+func (p *ChatMessage) SetContentType(val string) {
+	p.ContentType = val
+}
+func (p *ChatMessage) SetPayload(val string) {
+	p.Payload = val
+}
 
 var fieldIDToName_ChatMessage = map[int16]string{
 	1: "role",
 	2: "content",
+	3: "content_type",
+	4: "payload",
 }
 
 func (p *ChatMessage) Read(iprot thrift.TProtocol) (err error) {
@@ -70,6 +88,22 @@ func (p *ChatMessage) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -126,6 +160,28 @@ func (p *ChatMessage) ReadField2(iprot thrift.TProtocol) error {
 	p.Content = _field
 	return nil
 }
+func (p *ChatMessage) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ContentType = _field
+	return nil
+}
+func (p *ChatMessage) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Payload = _field
+	return nil
+}
 
 func (p *ChatMessage) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -139,6 +195,14 @@ func (p *ChatMessage) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 	}
@@ -191,6 +255,38 @@ WriteFieldBeginError:
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
+func (p *ChatMessage) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("content_type", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ContentType); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+func (p *ChatMessage) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("payload", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Payload); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
 
 func (p *ChatMessage) String() string {
 	if p == nil {
@@ -212,6 +308,12 @@ func (p *ChatMessage) DeepEqual(ano *ChatMessage) bool {
 	if !p.Field2DeepEqual(ano.Content) {
 		return false
 	}
+	if !p.Field3DeepEqual(ano.ContentType) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.Payload) {
+		return false
+	}
 	return true
 }
 
@@ -225,6 +327,20 @@ func (p *ChatMessage) Field1DeepEqual(src string) bool {
 func (p *ChatMessage) Field2DeepEqual(src string) bool {
 
 	if strings.Compare(p.Content, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ChatMessage) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.ContentType, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ChatMessage) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.Payload, src) != 0 {
 		return false
 	}
 	return true
@@ -537,6 +653,8 @@ func (p *ChatRequest) Field3DeepEqual(src string) bool {
 type ChatResponse struct {
 	ConversationId string `thrift:"conversation_id,1" frugal:"1,default,string" json:"conversation_id"`
 	Message        string `thrift:"message,2" frugal:"2,default,string" json:"message"`
+	ContentType    string `thrift:"content_type,3" frugal:"3,default,string" json:"content_type"`
+	Payload        string `thrift:"payload,4" frugal:"4,default,string" json:"payload"`
 }
 
 func NewChatResponse() *ChatResponse {
@@ -553,16 +671,32 @@ func (p *ChatResponse) GetConversationId() (v string) {
 func (p *ChatResponse) GetMessage() (v string) {
 	return p.Message
 }
+
+func (p *ChatResponse) GetContentType() (v string) {
+	return p.ContentType
+}
+
+func (p *ChatResponse) GetPayload() (v string) {
+	return p.Payload
+}
 func (p *ChatResponse) SetConversationId(val string) {
 	p.ConversationId = val
 }
 func (p *ChatResponse) SetMessage(val string) {
 	p.Message = val
 }
+func (p *ChatResponse) SetContentType(val string) {
+	p.ContentType = val
+}
+func (p *ChatResponse) SetPayload(val string) {
+	p.Payload = val
+}
 
 var fieldIDToName_ChatResponse = map[int16]string{
 	1: "conversation_id",
 	2: "message",
+	3: "content_type",
+	4: "payload",
 }
 
 func (p *ChatResponse) Read(iprot thrift.TProtocol) (err error) {
@@ -594,6 +728,22 @@ func (p *ChatResponse) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -650,6 +800,28 @@ func (p *ChatResponse) ReadField2(iprot thrift.TProtocol) error {
 	p.Message = _field
 	return nil
 }
+func (p *ChatResponse) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ContentType = _field
+	return nil
+}
+func (p *ChatResponse) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Payload = _field
+	return nil
+}
 
 func (p *ChatResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -663,6 +835,14 @@ func (p *ChatResponse) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 	}
@@ -715,6 +895,38 @@ WriteFieldBeginError:
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
+func (p *ChatResponse) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("content_type", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ContentType); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+func (p *ChatResponse) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("payload", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Payload); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
 
 func (p *ChatResponse) String() string {
 	if p == nil {
@@ -736,6 +948,12 @@ func (p *ChatResponse) DeepEqual(ano *ChatResponse) bool {
 	if !p.Field2DeepEqual(ano.Message) {
 		return false
 	}
+	if !p.Field3DeepEqual(ano.ContentType) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.Payload) {
+		return false
+	}
 	return true
 }
 
@@ -753,11 +971,27 @@ func (p *ChatResponse) Field2DeepEqual(src string) bool {
 	}
 	return true
 }
+func (p *ChatResponse) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.ContentType, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ChatResponse) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.Payload, src) != 0 {
+		return false
+	}
+	return true
+}
 
 type ChatStreamChunk struct {
 	ConversationId string `thrift:"conversation_id,1" frugal:"1,default,string" json:"conversation_id"`
 	Delta          string `thrift:"delta,2" frugal:"2,default,string" json:"delta"`
 	Done           bool   `thrift:"done,3" frugal:"3,default,bool" json:"done"`
+	ContentType    string `thrift:"content_type,4" frugal:"4,default,string" json:"content_type"`
+	Payload        string `thrift:"payload,5" frugal:"5,default,string" json:"payload"`
 }
 
 func NewChatStreamChunk() *ChatStreamChunk {
@@ -778,6 +1012,14 @@ func (p *ChatStreamChunk) GetDelta() (v string) {
 func (p *ChatStreamChunk) GetDone() (v bool) {
 	return p.Done
 }
+
+func (p *ChatStreamChunk) GetContentType() (v string) {
+	return p.ContentType
+}
+
+func (p *ChatStreamChunk) GetPayload() (v string) {
+	return p.Payload
+}
 func (p *ChatStreamChunk) SetConversationId(val string) {
 	p.ConversationId = val
 }
@@ -787,11 +1029,19 @@ func (p *ChatStreamChunk) SetDelta(val string) {
 func (p *ChatStreamChunk) SetDone(val bool) {
 	p.Done = val
 }
+func (p *ChatStreamChunk) SetContentType(val string) {
+	p.ContentType = val
+}
+func (p *ChatStreamChunk) SetPayload(val string) {
+	p.Payload = val
+}
 
 var fieldIDToName_ChatStreamChunk = map[int16]string{
 	1: "conversation_id",
 	2: "delta",
 	3: "done",
+	4: "content_type",
+	5: "payload",
 }
 
 func (p *ChatStreamChunk) Read(iprot thrift.TProtocol) (err error) {
@@ -831,6 +1081,22 @@ func (p *ChatStreamChunk) Read(iprot thrift.TProtocol) (err error) {
 		case 3:
 			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField5(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -898,6 +1164,28 @@ func (p *ChatStreamChunk) ReadField3(iprot thrift.TProtocol) error {
 	p.Done = _field
 	return nil
 }
+func (p *ChatStreamChunk) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ContentType = _field
+	return nil
+}
+func (p *ChatStreamChunk) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Payload = _field
+	return nil
+}
 
 func (p *ChatStreamChunk) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -915,6 +1203,14 @@ func (p *ChatStreamChunk) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField3(oprot); err != nil {
 			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
 			goto WriteFieldError
 		}
 	}
@@ -983,6 +1279,38 @@ WriteFieldBeginError:
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
+func (p *ChatStreamChunk) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("content_type", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ContentType); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+func (p *ChatStreamChunk) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("payload", thrift.STRING, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Payload); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
 
 func (p *ChatStreamChunk) String() string {
 	if p == nil {
@@ -1007,6 +1335,12 @@ func (p *ChatStreamChunk) DeepEqual(ano *ChatStreamChunk) bool {
 	if !p.Field3DeepEqual(ano.Done) {
 		return false
 	}
+	if !p.Field4DeepEqual(ano.ContentType) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.Payload) {
+		return false
+	}
 	return true
 }
 
@@ -1027,6 +1361,20 @@ func (p *ChatStreamChunk) Field2DeepEqual(src string) bool {
 func (p *ChatStreamChunk) Field3DeepEqual(src bool) bool {
 
 	if p.Done != src {
+		return false
+	}
+	return true
+}
+func (p *ChatStreamChunk) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.ContentType, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ChatStreamChunk) Field5DeepEqual(src string) bool {
+
+	if strings.Compare(p.Payload, src) != 0 {
 		return false
 	}
 	return true
@@ -3018,6 +3366,1654 @@ func (p *LoginResponse) Field4DeepEqual(src string) bool {
 	return true
 }
 
+type IMSummaryCard struct {
+	ConversationId string   `thrift:"conversation_id,1" frugal:"1,default,string" json:"conversation_id"`
+	Title          string   `thrift:"title,2" frugal:"2,default,string" json:"title"`
+	Summary        string   `thrift:"summary,3" frugal:"3,default,string" json:"summary"`
+	LatestTime     string   `thrift:"latest_time,4" frugal:"4,default,string" json:"latest_time"`
+	ProductIds     []string `thrift:"product_ids,5" frugal:"5,default,list<string>" json:"product_ids"`
+	ProductNames   []string `thrift:"product_names,6" frugal:"6,default,list<string>" json:"product_names"`
+	Evidence       []string `thrift:"evidence,7" frugal:"7,default,list<string>" json:"evidence"`
+	AnswerStatus   string   `thrift:"answer_status,8" frugal:"8,default,string" json:"answer_status"`
+	NextAction     string   `thrift:"next_action,9" frugal:"9,default,string" json:"next_action"`
+}
+
+func NewIMSummaryCard() *IMSummaryCard {
+	return &IMSummaryCard{}
+}
+
+func (p *IMSummaryCard) InitDefault() {
+}
+
+func (p *IMSummaryCard) GetConversationId() (v string) {
+	return p.ConversationId
+}
+
+func (p *IMSummaryCard) GetTitle() (v string) {
+	return p.Title
+}
+
+func (p *IMSummaryCard) GetSummary() (v string) {
+	return p.Summary
+}
+
+func (p *IMSummaryCard) GetLatestTime() (v string) {
+	return p.LatestTime
+}
+
+func (p *IMSummaryCard) GetProductIds() (v []string) {
+	return p.ProductIds
+}
+
+func (p *IMSummaryCard) GetProductNames() (v []string) {
+	return p.ProductNames
+}
+
+func (p *IMSummaryCard) GetEvidence() (v []string) {
+	return p.Evidence
+}
+
+func (p *IMSummaryCard) GetAnswerStatus() (v string) {
+	return p.AnswerStatus
+}
+
+func (p *IMSummaryCard) GetNextAction() (v string) {
+	return p.NextAction
+}
+func (p *IMSummaryCard) SetConversationId(val string) {
+	p.ConversationId = val
+}
+func (p *IMSummaryCard) SetTitle(val string) {
+	p.Title = val
+}
+func (p *IMSummaryCard) SetSummary(val string) {
+	p.Summary = val
+}
+func (p *IMSummaryCard) SetLatestTime(val string) {
+	p.LatestTime = val
+}
+func (p *IMSummaryCard) SetProductIds(val []string) {
+	p.ProductIds = val
+}
+func (p *IMSummaryCard) SetProductNames(val []string) {
+	p.ProductNames = val
+}
+func (p *IMSummaryCard) SetEvidence(val []string) {
+	p.Evidence = val
+}
+func (p *IMSummaryCard) SetAnswerStatus(val string) {
+	p.AnswerStatus = val
+}
+func (p *IMSummaryCard) SetNextAction(val string) {
+	p.NextAction = val
+}
+
+var fieldIDToName_IMSummaryCard = map[int16]string{
+	1: "conversation_id",
+	2: "title",
+	3: "summary",
+	4: "latest_time",
+	5: "product_ids",
+	6: "product_names",
+	7: "evidence",
+	8: "answer_status",
+	9: "next_action",
+}
+
+func (p *IMSummaryCard) Read(iprot thrift.TProtocol) (err error) {
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 6:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField7(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 8:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_IMSummaryCard[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *IMSummaryCard) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ConversationId = _field
+	return nil
+}
+func (p *IMSummaryCard) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Title = _field
+	return nil
+}
+func (p *IMSummaryCard) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Summary = _field
+	return nil
+}
+func (p *IMSummaryCard) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.LatestTime = _field
+	return nil
+}
+func (p *IMSummaryCard) ReadField5(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]string, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem string
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.ProductIds = _field
+	return nil
+}
+func (p *IMSummaryCard) ReadField6(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]string, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem string
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.ProductNames = _field
+	return nil
+}
+func (p *IMSummaryCard) ReadField7(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]string, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem string
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.Evidence = _field
+	return nil
+}
+func (p *IMSummaryCard) ReadField8(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AnswerStatus = _field
+	return nil
+}
+func (p *IMSummaryCard) ReadField9(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.NextAction = _field
+	return nil
+}
+
+func (p *IMSummaryCard) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("IMSummaryCard"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
+			goto WriteFieldError
+		}
+		if err = p.writeField6(oprot); err != nil {
+			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
+			goto WriteFieldError
+		}
+		if err = p.writeField8(oprot); err != nil {
+			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *IMSummaryCard) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("conversation_id", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ConversationId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+func (p *IMSummaryCard) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("title", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Title); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+func (p *IMSummaryCard) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("summary", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Summary); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+func (p *IMSummaryCard) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("latest_time", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.LatestTime); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+func (p *IMSummaryCard) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("product_ids", thrift.LIST, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRING, len(p.ProductIds)); err != nil {
+		return err
+	}
+	for _, v := range p.ProductIds {
+		if err := oprot.WriteString(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+func (p *IMSummaryCard) writeField6(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("product_names", thrift.LIST, 6); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRING, len(p.ProductNames)); err != nil {
+		return err
+	}
+	for _, v := range p.ProductNames {
+		if err := oprot.WriteString(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+}
+func (p *IMSummaryCard) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("evidence", thrift.LIST, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRING, len(p.Evidence)); err != nil {
+		return err
+	}
+	for _, v := range p.Evidence {
+		if err := oprot.WriteString(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+func (p *IMSummaryCard) writeField8(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("answer_status", thrift.STRING, 8); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.AnswerStatus); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
+}
+func (p *IMSummaryCard) writeField9(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("next_action", thrift.STRING, 9); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.NextAction); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *IMSummaryCard) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IMSummaryCard(%+v)", *p)
+
+}
+
+func (p *IMSummaryCard) DeepEqual(ano *IMSummaryCard) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.ConversationId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Title) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.Summary) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.LatestTime) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.ProductIds) {
+		return false
+	}
+	if !p.Field6DeepEqual(ano.ProductNames) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.Evidence) {
+		return false
+	}
+	if !p.Field8DeepEqual(ano.AnswerStatus) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.NextAction) {
+		return false
+	}
+	return true
+}
+
+func (p *IMSummaryCard) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.ConversationId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *IMSummaryCard) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Title, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *IMSummaryCard) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.Summary, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *IMSummaryCard) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.LatestTime, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *IMSummaryCard) Field5DeepEqual(src []string) bool {
+
+	if len(p.ProductIds) != len(src) {
+		return false
+	}
+	for i, v := range p.ProductIds {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
+	}
+	return true
+}
+func (p *IMSummaryCard) Field6DeepEqual(src []string) bool {
+
+	if len(p.ProductNames) != len(src) {
+		return false
+	}
+	for i, v := range p.ProductNames {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
+	}
+	return true
+}
+func (p *IMSummaryCard) Field7DeepEqual(src []string) bool {
+
+	if len(p.Evidence) != len(src) {
+		return false
+	}
+	for i, v := range p.Evidence {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
+	}
+	return true
+}
+func (p *IMSummaryCard) Field8DeepEqual(src string) bool {
+
+	if strings.Compare(p.AnswerStatus, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *IMSummaryCard) Field9DeepEqual(src string) bool {
+
+	if strings.Compare(p.NextAction, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type IMConversationSummaryGroups struct {
+	Agreed       []*IMSummaryCard `thrift:"agreed,1" frugal:"1,default,list<IMSummaryCard>" json:"agreed"`
+	Rejected     []*IMSummaryCard `thrift:"rejected,2" frugal:"2,default,list<IMSummaryCard>" json:"rejected"`
+	NeedFollowUp []*IMSummaryCard `thrift:"need_follow_up,3" frugal:"3,default,list<IMSummaryCard>" json:"need_follow_up"`
+}
+
+func NewIMConversationSummaryGroups() *IMConversationSummaryGroups {
+	return &IMConversationSummaryGroups{}
+}
+
+func (p *IMConversationSummaryGroups) InitDefault() {
+}
+
+func (p *IMConversationSummaryGroups) GetAgreed() (v []*IMSummaryCard) {
+	return p.Agreed
+}
+
+func (p *IMConversationSummaryGroups) GetRejected() (v []*IMSummaryCard) {
+	return p.Rejected
+}
+
+func (p *IMConversationSummaryGroups) GetNeedFollowUp() (v []*IMSummaryCard) {
+	return p.NeedFollowUp
+}
+func (p *IMConversationSummaryGroups) SetAgreed(val []*IMSummaryCard) {
+	p.Agreed = val
+}
+func (p *IMConversationSummaryGroups) SetRejected(val []*IMSummaryCard) {
+	p.Rejected = val
+}
+func (p *IMConversationSummaryGroups) SetNeedFollowUp(val []*IMSummaryCard) {
+	p.NeedFollowUp = val
+}
+
+var fieldIDToName_IMConversationSummaryGroups = map[int16]string{
+	1: "agreed",
+	2: "rejected",
+	3: "need_follow_up",
+}
+
+func (p *IMConversationSummaryGroups) Read(iprot thrift.TProtocol) (err error) {
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_IMConversationSummaryGroups[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *IMConversationSummaryGroups) ReadField1(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*IMSummaryCard, 0, size)
+	values := make([]IMSummaryCard, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.Agreed = _field
+	return nil
+}
+func (p *IMConversationSummaryGroups) ReadField2(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*IMSummaryCard, 0, size)
+	values := make([]IMSummaryCard, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.Rejected = _field
+	return nil
+}
+func (p *IMConversationSummaryGroups) ReadField3(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*IMSummaryCard, 0, size)
+	values := make([]IMSummaryCard, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.NeedFollowUp = _field
+	return nil
+}
+
+func (p *IMConversationSummaryGroups) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("IMConversationSummaryGroups"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *IMConversationSummaryGroups) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("agreed", thrift.LIST, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Agreed)); err != nil {
+		return err
+	}
+	for _, v := range p.Agreed {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+func (p *IMConversationSummaryGroups) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("rejected", thrift.LIST, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Rejected)); err != nil {
+		return err
+	}
+	for _, v := range p.Rejected {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+func (p *IMConversationSummaryGroups) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("need_follow_up", thrift.LIST, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.NeedFollowUp)); err != nil {
+		return err
+	}
+	for _, v := range p.NeedFollowUp {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *IMConversationSummaryGroups) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IMConversationSummaryGroups(%+v)", *p)
+
+}
+
+func (p *IMConversationSummaryGroups) DeepEqual(ano *IMConversationSummaryGroups) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Agreed) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Rejected) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.NeedFollowUp) {
+		return false
+	}
+	return true
+}
+
+func (p *IMConversationSummaryGroups) Field1DeepEqual(src []*IMSummaryCard) bool {
+
+	if len(p.Agreed) != len(src) {
+		return false
+	}
+	for i, v := range p.Agreed {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
+	}
+	return true
+}
+func (p *IMConversationSummaryGroups) Field2DeepEqual(src []*IMSummaryCard) bool {
+
+	if len(p.Rejected) != len(src) {
+		return false
+	}
+	for i, v := range p.Rejected {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
+	}
+	return true
+}
+func (p *IMConversationSummaryGroups) Field3DeepEqual(src []*IMSummaryCard) bool {
+
+	if len(p.NeedFollowUp) != len(src) {
+		return false
+	}
+	for i, v := range p.NeedFollowUp {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
+	}
+	return true
+}
+
+type IMChatSummaryRequest struct {
+	UserId string `thrift:"user_id,1" frugal:"1,default,string" json:"user_id"`
+}
+
+func NewIMChatSummaryRequest() *IMChatSummaryRequest {
+	return &IMChatSummaryRequest{}
+}
+
+func (p *IMChatSummaryRequest) InitDefault() {
+}
+
+func (p *IMChatSummaryRequest) GetUserId() (v string) {
+	return p.UserId
+}
+func (p *IMChatSummaryRequest) SetUserId(val string) {
+	p.UserId = val
+}
+
+var fieldIDToName_IMChatSummaryRequest = map[int16]string{
+	1: "user_id",
+}
+
+func (p *IMChatSummaryRequest) Read(iprot thrift.TProtocol) (err error) {
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_IMChatSummaryRequest[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *IMChatSummaryRequest) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.UserId = _field
+	return nil
+}
+
+func (p *IMChatSummaryRequest) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("IMChatSummaryRequest"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *IMChatSummaryRequest) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("user_id", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.UserId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *IMChatSummaryRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IMChatSummaryRequest(%+v)", *p)
+
+}
+
+func (p *IMChatSummaryRequest) DeepEqual(ano *IMChatSummaryRequest) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.UserId) {
+		return false
+	}
+	return true
+}
+
+func (p *IMChatSummaryRequest) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.UserId, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type IMChatSummaryResponse struct {
+	Success               bool                         `thrift:"success,1" frugal:"1,default,bool" json:"success"`
+	Error                 string                       `thrift:"error,2" frugal:"2,default,string" json:"error"`
+	NewOffers_            []*IMSummaryCard             `thrift:"new_offers,3" frugal:"3,default,list<IMSummaryCard>" json:"new_offers"`
+	ConversationSummaries *IMConversationSummaryGroups `thrift:"conversation_summaries,4" frugal:"4,default,IMConversationSummaryGroups" json:"conversation_summaries"`
+	UpdatedAt             string                       `thrift:"updated_at,5" frugal:"5,default,string" json:"updated_at"`
+}
+
+func NewIMChatSummaryResponse() *IMChatSummaryResponse {
+	return &IMChatSummaryResponse{}
+}
+
+func (p *IMChatSummaryResponse) InitDefault() {
+}
+
+func (p *IMChatSummaryResponse) GetSuccess() (v bool) {
+	return p.Success
+}
+
+func (p *IMChatSummaryResponse) GetError() (v string) {
+	return p.Error
+}
+
+func (p *IMChatSummaryResponse) GetNewOffers_() (v []*IMSummaryCard) {
+	return p.NewOffers_
+}
+
+var IMChatSummaryResponse_ConversationSummaries_DEFAULT *IMConversationSummaryGroups
+
+func (p *IMChatSummaryResponse) GetConversationSummaries() (v *IMConversationSummaryGroups) {
+	if !p.IsSetConversationSummaries() {
+		return IMChatSummaryResponse_ConversationSummaries_DEFAULT
+	}
+	return p.ConversationSummaries
+}
+
+func (p *IMChatSummaryResponse) GetUpdatedAt() (v string) {
+	return p.UpdatedAt
+}
+func (p *IMChatSummaryResponse) SetSuccess(val bool) {
+	p.Success = val
+}
+func (p *IMChatSummaryResponse) SetError(val string) {
+	p.Error = val
+}
+func (p *IMChatSummaryResponse) SetNewOffers_(val []*IMSummaryCard) {
+	p.NewOffers_ = val
+}
+func (p *IMChatSummaryResponse) SetConversationSummaries(val *IMConversationSummaryGroups) {
+	p.ConversationSummaries = val
+}
+func (p *IMChatSummaryResponse) SetUpdatedAt(val string) {
+	p.UpdatedAt = val
+}
+
+var fieldIDToName_IMChatSummaryResponse = map[int16]string{
+	1: "success",
+	2: "error",
+	3: "new_offers",
+	4: "conversation_summaries",
+	5: "updated_at",
+}
+
+func (p *IMChatSummaryResponse) IsSetConversationSummaries() bool {
+	return p.ConversationSummaries != nil
+}
+
+func (p *IMChatSummaryResponse) Read(iprot thrift.TProtocol) (err error) {
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_IMChatSummaryResponse[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *IMChatSummaryResponse) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Success = _field
+	return nil
+}
+func (p *IMChatSummaryResponse) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Error = _field
+	return nil
+}
+func (p *IMChatSummaryResponse) ReadField3(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*IMSummaryCard, 0, size)
+	values := make([]IMSummaryCard, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.NewOffers_ = _field
+	return nil
+}
+func (p *IMChatSummaryResponse) ReadField4(iprot thrift.TProtocol) error {
+	_field := NewIMConversationSummaryGroups()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.ConversationSummaries = _field
+	return nil
+}
+func (p *IMChatSummaryResponse) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.UpdatedAt = _field
+	return nil
+}
+
+func (p *IMChatSummaryResponse) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("IMChatSummaryResponse"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *IMChatSummaryResponse) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("success", thrift.BOOL, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.Success); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+func (p *IMChatSummaryResponse) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("error", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Error); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+func (p *IMChatSummaryResponse) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("new_offers", thrift.LIST, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.NewOffers_)); err != nil {
+		return err
+	}
+	for _, v := range p.NewOffers_ {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+func (p *IMChatSummaryResponse) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("conversation_summaries", thrift.STRUCT, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.ConversationSummaries.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+func (p *IMChatSummaryResponse) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("updated_at", thrift.STRING, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.UpdatedAt); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+
+func (p *IMChatSummaryResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IMChatSummaryResponse(%+v)", *p)
+
+}
+
+func (p *IMChatSummaryResponse) DeepEqual(ano *IMChatSummaryResponse) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Success) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Error) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.NewOffers_) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.ConversationSummaries) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.UpdatedAt) {
+		return false
+	}
+	return true
+}
+
+func (p *IMChatSummaryResponse) Field1DeepEqual(src bool) bool {
+
+	if p.Success != src {
+		return false
+	}
+	return true
+}
+func (p *IMChatSummaryResponse) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Error, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *IMChatSummaryResponse) Field3DeepEqual(src []*IMSummaryCard) bool {
+
+	if len(p.NewOffers_) != len(src) {
+		return false
+	}
+	for i, v := range p.NewOffers_ {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
+	}
+	return true
+}
+func (p *IMChatSummaryResponse) Field4DeepEqual(src *IMConversationSummaryGroups) bool {
+
+	if !p.ConversationSummaries.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *IMChatSummaryResponse) Field5DeepEqual(src string) bool {
+
+	if strings.Compare(p.UpdatedAt, src) != 0 {
+		return false
+	}
+	return true
+}
+
 type AgentChatService interface {
 	Login(ctx context.Context, req *LoginRequest) (r *LoginResponse, err error)
 
@@ -3030,6 +5026,8 @@ type AgentChatService interface {
 	ListSessions(ctx context.Context, req *ListSessionsRequest) (r *ListSessionsResponse, err error)
 
 	GetSession(ctx context.Context, req *GetSessionRequest) (r *GetSessionResponse, err error)
+
+	GetIMChatSummary(ctx context.Context, req *IMChatSummaryRequest) (r *IMChatSummaryResponse, err error)
 }
 
 type AgentChatServiceClient struct {
@@ -3106,6 +5104,15 @@ func (p *AgentChatServiceClient) GetSession(ctx context.Context, req *GetSession
 	}
 	return _result.GetSuccess(), nil
 }
+func (p *AgentChatServiceClient) GetIMChatSummary(ctx context.Context, req *IMChatSummaryRequest) (r *IMChatSummaryResponse, err error) {
+	var _args AgentChatServiceGetIMChatSummaryArgs
+	_args.Req = req
+	var _result AgentChatServiceGetIMChatSummaryResult
+	if err = p.Client_().Call(ctx, "GetIMChatSummary", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
 
 type AgentChatService_ChatStreamServer streaming.ServerStreamingServer[ChatStreamChunk]
 
@@ -3135,6 +5142,7 @@ func NewAgentChatServiceProcessor(handler AgentChatService) *AgentChatServicePro
 	self.AddToProcessorMap("CreateSession", &agentChatServiceProcessorCreateSession{handler: handler})
 	self.AddToProcessorMap("ListSessions", &agentChatServiceProcessorListSessions{handler: handler})
 	self.AddToProcessorMap("GetSession", &agentChatServiceProcessorGetSession{handler: handler})
+	self.AddToProcessorMap("GetIMChatSummary", &agentChatServiceProcessorGetIMChatSummary{handler: handler})
 	return self
 }
 func (p *AgentChatServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -3386,6 +5394,54 @@ func (p *agentChatServiceProcessorGetSession) Process(ctx context.Context, seqId
 		result.Success = retval
 	}
 	if err2 = oprot.WriteMessageBegin("GetSession", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type agentChatServiceProcessorGetIMChatSummary struct {
+	handler AgentChatService
+}
+
+func (p *agentChatServiceProcessorGetIMChatSummary) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := AgentChatServiceGetIMChatSummaryArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("GetIMChatSummary", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := AgentChatServiceGetIMChatSummaryResult{}
+	var retval *IMChatSummaryResponse
+	if retval, err2 = p.handler.GetIMChatSummary(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetIMChatSummary: "+err2.Error())
+		oprot.WriteMessageBegin("GetIMChatSummary", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("GetIMChatSummary", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -5424,6 +7480,344 @@ func (p *AgentChatServiceGetSessionResult) DeepEqual(ano *AgentChatServiceGetSes
 }
 
 func (p *AgentChatServiceGetSessionResult) Field0DeepEqual(src *GetSessionResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type AgentChatServiceGetIMChatSummaryArgs struct {
+	Req *IMChatSummaryRequest `thrift:"req,1" frugal:"1,default,IMChatSummaryRequest" json:"req"`
+}
+
+func NewAgentChatServiceGetIMChatSummaryArgs() *AgentChatServiceGetIMChatSummaryArgs {
+	return &AgentChatServiceGetIMChatSummaryArgs{}
+}
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) InitDefault() {
+}
+
+var AgentChatServiceGetIMChatSummaryArgs_Req_DEFAULT *IMChatSummaryRequest
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) GetReq() (v *IMChatSummaryRequest) {
+	if !p.IsSetReq() {
+		return AgentChatServiceGetIMChatSummaryArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AgentChatServiceGetIMChatSummaryArgs) SetReq(val *IMChatSummaryRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_AgentChatServiceGetIMChatSummaryArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) Read(iprot thrift.TProtocol) (err error) {
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AgentChatServiceGetIMChatSummaryArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewIMChatSummaryRequest()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetIMChatSummary_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AgentChatServiceGetIMChatSummaryArgs(%+v)", *p)
+
+}
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) DeepEqual(ano *AgentChatServiceGetIMChatSummaryArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *AgentChatServiceGetIMChatSummaryArgs) Field1DeepEqual(src *IMChatSummaryRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type AgentChatServiceGetIMChatSummaryResult struct {
+	Success *IMChatSummaryResponse `thrift:"success,0,optional" frugal:"0,optional,IMChatSummaryResponse" json:"success,omitempty"`
+}
+
+func NewAgentChatServiceGetIMChatSummaryResult() *AgentChatServiceGetIMChatSummaryResult {
+	return &AgentChatServiceGetIMChatSummaryResult{}
+}
+
+func (p *AgentChatServiceGetIMChatSummaryResult) InitDefault() {
+}
+
+var AgentChatServiceGetIMChatSummaryResult_Success_DEFAULT *IMChatSummaryResponse
+
+func (p *AgentChatServiceGetIMChatSummaryResult) GetSuccess() (v *IMChatSummaryResponse) {
+	if !p.IsSetSuccess() {
+		return AgentChatServiceGetIMChatSummaryResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *AgentChatServiceGetIMChatSummaryResult) SetSuccess(x interface{}) {
+	p.Success = x.(*IMChatSummaryResponse)
+}
+
+var fieldIDToName_AgentChatServiceGetIMChatSummaryResult = map[int16]string{
+	0: "success",
+}
+
+func (p *AgentChatServiceGetIMChatSummaryResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AgentChatServiceGetIMChatSummaryResult) Read(iprot thrift.TProtocol) (err error) {
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AgentChatServiceGetIMChatSummaryResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *AgentChatServiceGetIMChatSummaryResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewIMChatSummaryResponse()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *AgentChatServiceGetIMChatSummaryResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetIMChatSummary_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *AgentChatServiceGetIMChatSummaryResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *AgentChatServiceGetIMChatSummaryResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AgentChatServiceGetIMChatSummaryResult(%+v)", *p)
+
+}
+
+func (p *AgentChatServiceGetIMChatSummaryResult) DeepEqual(ano *AgentChatServiceGetIMChatSummaryResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *AgentChatServiceGetIMChatSummaryResult) Field0DeepEqual(src *IMChatSummaryResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
