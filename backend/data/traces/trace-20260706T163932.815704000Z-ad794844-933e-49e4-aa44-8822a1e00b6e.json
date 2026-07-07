@@ -1,0 +1,1070 @@
+{
+  "id": "ad794844-933e-49e4-aa44-8822a1e00b6e",
+  "started_at": "2026-07-06T16:39:32.815704Z",
+  "ended_at": "2026-07-06T16:39:39.624302Z",
+  "nodes": [
+    {
+      "index": 1,
+      "started_at": "2026-07-06T16:39:32.815736Z",
+      "kind": "graph_start",
+      "name": "im_chat_summary_graph",
+      "component": "Graph",
+      "input": {
+        "user_id": "user_1001"
+      }
+    },
+    {
+      "index": 2,
+      "started_at": "2026-07-06T16:39:32.815884Z",
+      "kind": "lambda_start",
+      "component": "Lambda",
+      "input": {
+        "user_id": "user_1001"
+      }
+    },
+    {
+      "index": 3,
+      "ended_at": "2026-07-06T16:39:32.823599Z",
+      "kind": "lambda_end",
+      "component": "Lambda",
+      "output": {
+        "conversations": [
+          {
+            "conversation_id": "conv_im_3001",
+            "messages": [
+              {
+                "content": "邀请你参与轻润保湿精华新品首发推广，支持免费申样。",
+                "invitation_card": {
+                  "intro": "新品保湿精华首发，适合美妆护肤内容，支持免费申样和专属素材包。",
+                  "products": [
+                    {
+                      "commission": 18.5,
+                      "name": "轻润保湿精华",
+                      "product_id": "prod_2001"
+                    },
+                    {
+                      "commission": 20.5,
+                      "name": "防晒隔离乳",
+                      "product_id": "prod_2005"
+                    }
+                  ]
+                },
+                "message_id": "msg_3001_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-03T10:30:00+08:00",
+                "sender": "MERCHANT"
+              }
+            ]
+          },
+          {
+            "conversation_id": "conv_im_3002",
+            "messages": [
+              {
+                "content": "邀请你测评智能颈部按摩仪，佣金高，样品名额有限。",
+                "invitation_card": {
+                  "intro": "智能颈部按摩仪适合办公、健康生活类内容，活动期有达人专属佣金。",
+                  "products": [
+                    {
+                      "commission": 28,
+                      "name": "智能颈部按摩仪",
+                      "product_id": "prod_2004"
+                    }
+                  ]
+                },
+                "message_id": "msg_3002_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-02T16:20:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "这个品可以给我专属佣金吗？另外是否能免费申样？",
+                "message_id": "msg_3002_002",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T16:43:00+08:00",
+                "sender": "USER"
+              },
+              {
+                "content": "可以申请专属佣金，当前可给到 32%。免费样品名额暂时满了，也可以走买样报销流程。",
+                "message_id": "msg_3002_003",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T17:05:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "contact_card": {
+                  "name": "品牌商务-阿宁",
+                  "phone": "13800000001",
+                  "wechat": "brand_aning"
+                },
+                "content": "这是品牌商务联系方式，方便后续同步脚本和素材。",
+                "message_id": "msg_3002_004",
+                "message_type": "CONTACT_CARD",
+                "send_time": "2026-07-02T17:06:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "你好，这是我的联系方式，方便后续沟通合作~ \n电话：16603860497\n微信：WeChat",
+                "message_id": "msg_1783335663569272000",
+                "message_type": "TEXT",
+                "send_time": "2026-07-06T19:01:03+08:00",
+                "sender": "USER"
+              },
+              {
+                "content": "你好阿宁，我刚想把智能颈部按摩仪加入选品车，但提示类目不匹配，无法加入。请问能不能帮忙设置一下商品类目的限制？这样我这边就能正常加品了，谢谢！",
+                "message_id": "msg_1783337260219850000",
+                "message_type": "TEXT",
+                "send_time": "2026-07-06T19:27:40+08:00",
+                "sender": "USER"
+              }
+            ]
+          },
+          {
+            "conversation_id": "conv_im_3005",
+            "messages": [
+              {
+                "content": "防晒隔离乳夏季活动邀约，佣金 20.5%，可提供脚本参考。",
+                "invitation_card": {
+                  "intro": "夏季防晒重点推广，适合通勤、户外、防晒测评内容。",
+                  "products": [
+                    {
+                      "commission": 20.5,
+                      "name": "防晒隔离乳",
+                      "product_id": "prod_2005"
+                    }
+                  ]
+                },
+                "message_id": "msg_3005_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-01T11:00:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "如果你这周有排期，我们可以优先安排寄样。",
+                "message_id": "msg_3005_002",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T09:30:00+08:00",
+                "sender": "MERCHANT"
+              }
+            ]
+          },
+          {
+            "conversation_id": "conv_im_3006",
+            "messages": [
+              {
+                "content": "邀请你推广低脂燕麦脆礼盒，支持免费样品。",
+                "invitation_card": {
+                  "intro": "低脂健康零食，主打下午茶和健身轻食场景。",
+                  "products": [
+                    {
+                      "commission": 15,
+                      "name": "低脂燕麦脆礼盒",
+                      "product_id": "prod_2003"
+                    }
+                  ]
+                },
+                "message_id": "msg_3006_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-02T12:10:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "我近期主要做美妆护肤，这个食品类暂时不接。",
+                "message_id": "msg_3006_002",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T13:05:00+08:00",
+                "sender": "USER"
+              },
+              {
+                "content": "了解，后续如果有护肤联名礼盒再联系你。",
+                "message_id": "msg_3006_003",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T13:20:00+08:00",
+                "sender": "MERCHANT"
+              }
+            ]
+          },
+          {
+            "conversation_id": "conv_im_3007",
+            "messages": [
+              {
+                "content": "高客单护肤精华邀约，首单佣金 18.5%。",
+                "invitation_card": {
+                  "intro": "高客单精华新品测试，适合成分党和功效护肤内容。",
+                  "products": [
+                    {
+                      "commission": 18.5,
+                      "name": "轻润保湿精华",
+                      "product_id": "prod_2001"
+                    }
+                  ]
+                },
+                "message_id": "msg_3007_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-04T09:00:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "如果我排一条测评视频，可以给到专属佣金 25% 吗？",
+                "message_id": "msg_3007_002",
+                "message_type": "TEXT",
+                "send_time": "2026-07-04T09:18:00+08:00",
+                "sender": "USER"
+              }
+            ]
+          }
+        ],
+        "user_id": "user_1001"
+      }
+    },
+    {
+      "index": 4,
+      "started_at": "2026-07-06T16:39:32.823739Z",
+      "kind": "lambda_start",
+      "component": "Lambda",
+      "input": {
+        "conversations": [
+          {
+            "conversation_id": "conv_im_3001",
+            "messages": [
+              {
+                "content": "邀请你参与轻润保湿精华新品首发推广，支持免费申样。",
+                "invitation_card": {
+                  "intro": "新品保湿精华首发，适合美妆护肤内容，支持免费申样和专属素材包。",
+                  "products": [
+                    {
+                      "commission": 18.5,
+                      "name": "轻润保湿精华",
+                      "product_id": "prod_2001"
+                    },
+                    {
+                      "commission": 20.5,
+                      "name": "防晒隔离乳",
+                      "product_id": "prod_2005"
+                    }
+                  ]
+                },
+                "message_id": "msg_3001_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-03T10:30:00+08:00",
+                "sender": "MERCHANT"
+              }
+            ]
+          },
+          {
+            "conversation_id": "conv_im_3002",
+            "messages": [
+              {
+                "content": "邀请你测评智能颈部按摩仪，佣金高，样品名额有限。",
+                "invitation_card": {
+                  "intro": "智能颈部按摩仪适合办公、健康生活类内容，活动期有达人专属佣金。",
+                  "products": [
+                    {
+                      "commission": 28,
+                      "name": "智能颈部按摩仪",
+                      "product_id": "prod_2004"
+                    }
+                  ]
+                },
+                "message_id": "msg_3002_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-02T16:20:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "这个品可以给我专属佣金吗？另外是否能免费申样？",
+                "message_id": "msg_3002_002",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T16:43:00+08:00",
+                "sender": "USER"
+              },
+              {
+                "content": "可以申请专属佣金，当前可给到 32%。免费样品名额暂时满了，也可以走买样报销流程。",
+                "message_id": "msg_3002_003",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T17:05:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "contact_card": {
+                  "name": "品牌商务-阿宁",
+                  "phone": "13800000001",
+                  "wechat": "brand_aning"
+                },
+                "content": "这是品牌商务联系方式，方便后续同步脚本和素材。",
+                "message_id": "msg_3002_004",
+                "message_type": "CONTACT_CARD",
+                "send_time": "2026-07-02T17:06:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "你好，这是我的联系方式，方便后续沟通合作~ \n电话：16603860497\n微信：WeChat",
+                "message_id": "msg_1783335663569272000",
+                "message_type": "TEXT",
+                "send_time": "2026-07-06T19:01:03+08:00",
+                "sender": "USER"
+              },
+              {
+                "content": "你好阿宁，我刚想把智能颈部按摩仪加入选品车，但提示类目不匹配，无法加入。请问能不能帮忙设置一下商品类目的限制？这样我这边就能正常加品了，谢谢！",
+                "message_id": "msg_1783337260219850000",
+                "message_type": "TEXT",
+                "send_time": "2026-07-06T19:27:40+08:00",
+                "sender": "USER"
+              }
+            ]
+          },
+          {
+            "conversation_id": "conv_im_3005",
+            "messages": [
+              {
+                "content": "防晒隔离乳夏季活动邀约，佣金 20.5%，可提供脚本参考。",
+                "invitation_card": {
+                  "intro": "夏季防晒重点推广，适合通勤、户外、防晒测评内容。",
+                  "products": [
+                    {
+                      "commission": 20.5,
+                      "name": "防晒隔离乳",
+                      "product_id": "prod_2005"
+                    }
+                  ]
+                },
+                "message_id": "msg_3005_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-01T11:00:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "如果你这周有排期，我们可以优先安排寄样。",
+                "message_id": "msg_3005_002",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T09:30:00+08:00",
+                "sender": "MERCHANT"
+              }
+            ]
+          },
+          {
+            "conversation_id": "conv_im_3006",
+            "messages": [
+              {
+                "content": "邀请你推广低脂燕麦脆礼盒，支持免费样品。",
+                "invitation_card": {
+                  "intro": "低脂健康零食，主打下午茶和健身轻食场景。",
+                  "products": [
+                    {
+                      "commission": 15,
+                      "name": "低脂燕麦脆礼盒",
+                      "product_id": "prod_2003"
+                    }
+                  ]
+                },
+                "message_id": "msg_3006_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-02T12:10:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "我近期主要做美妆护肤，这个食品类暂时不接。",
+                "message_id": "msg_3006_002",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T13:05:00+08:00",
+                "sender": "USER"
+              },
+              {
+                "content": "了解，后续如果有护肤联名礼盒再联系你。",
+                "message_id": "msg_3006_003",
+                "message_type": "TEXT",
+                "send_time": "2026-07-02T13:20:00+08:00",
+                "sender": "MERCHANT"
+              }
+            ]
+          },
+          {
+            "conversation_id": "conv_im_3007",
+            "messages": [
+              {
+                "content": "高客单护肤精华邀约，首单佣金 18.5%。",
+                "invitation_card": {
+                  "intro": "高客单精华新品测试，适合成分党和功效护肤内容。",
+                  "products": [
+                    {
+                      "commission": 18.5,
+                      "name": "轻润保湿精华",
+                      "product_id": "prod_2001"
+                    }
+                  ]
+                },
+                "message_id": "msg_3007_001",
+                "message_type": "INVITATION_CARD",
+                "send_time": "2026-07-04T09:00:00+08:00",
+                "sender": "MERCHANT"
+              },
+              {
+                "content": "如果我排一条测评视频，可以给到专属佣金 25% 吗？",
+                "message_id": "msg_3007_002",
+                "message_type": "TEXT",
+                "send_time": "2026-07-04T09:18:00+08:00",
+                "sender": "USER"
+              }
+            ]
+          }
+        ],
+        "user_id": "user_1001"
+      }
+    },
+    {
+      "index": 5,
+      "started_at": "2026-07-06T16:39:32.823809Z",
+      "kind": "model",
+      "type": "DeepSeek",
+      "component": "ChatModel",
+      "model": "deepseek-chat",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是联盟撮合 IM 会话分析器。你只输出 JSON，不输出 Markdown 或解释文字。\n\n请把输入的 IM 会话整理成前端可展示的系统提示卡片，输出必须是合法 JSON 对象，结构如下：\n{\n  \"new_offers\": [],\n  \"conversation_summaries\": {\n    \"agreed\": [],\n    \"rejected\": [],\n    \"need_follow_up\": []\n  },\n  \"updated_at\": \"RFC3339 时间\"\n}\n\n每张卡片结构：\n{\n  \"conversation_id\": \"会话 ID，必填\",\n  \"title\": \"短标题，优先使用商品或会话主题，不要编造商家名\",\n  \"summary\": \"一句话业务总结\",\n  \"latest_time\": \"相关最新消息时间\",\n  \"product_ids\": [\"商品 ID\"],\n  \"product_names\": [\"商品名\"],\n  \"evidence\": [\"关键证据，最多 3 条，来自消息内容\"],\n  \"answer_status\": \"new_offer|agreed|rejected|need_follow_up\",\n  \"next_action\": \"建议用户下一步做什么\"\n}\n\n分类规则：\n1. new_offers：商家发出邀约或邀约卡后，用户还没有在该邀约之后回复。\n2. agreed：用户询问高佣、免费申样、寄样、内容要求等，对方已明确同意或给出可执行支持。\n3. rejected：对方明确拒绝，或明确表示不满足条件、名额已满、暂不支持。\n4. need_follow_up：对方没有明确答复，或提出条件、需要继续沟通、需要用户补充排期/信息。\n\n约束：\n- 只能基于输入消息判断，不要编造商家名、商品、承诺、审核状态或发货状态。\n- 如果商品来自邀约卡，优先使用 invitation_card.products 中的 product_id、name、commission。\n- 如果一个会话同时满足多个分类，选择对用户当前最需要处理的分类。\n- 每个会话最多输出一张卡片。\n- 数组不存在内容时输出空数组。"
+          },
+          {
+            "role": "user",
+            "content": "当前用户 ID：user_1001\n\nIM 会话原始数据 JSON：\n[\n  {\n    \"conversation_id\": \"conv_im_3001\",\n    \"messages\": [\n      {\n        \"message_id\": \"msg_3001_001\",\n        \"sender\": \"MERCHANT\",\n        \"message_type\": \"INVITATION_CARD\",\n        \"content\": \"邀请你参与轻润保湿精华新品首发推广，支持免费申样。\",\n        \"send_time\": \"2026-07-03T10:30:00+08:00\",\n        \"invitation_card\": {\n          \"intro\": \"新品保湿精华首发，适合美妆护肤内容，支持免费申样和专属素材包。\",\n          \"products\": [\n            {\n              \"product_id\": \"prod_2001\",\n              \"name\": \"轻润保湿精华\",\n              \"commission\": 18.5\n            },\n            {\n              \"product_id\": \"prod_2005\",\n              \"name\": \"防晒隔离乳\",\n              \"commission\": 20.5\n            }\n          ]\n        }\n      }\n    ]\n  },\n  {\n    \"conversation_id\": \"conv_im_3002\",\n    \"messages\": [\n      {\n        \"message_id\": \"msg_3002_001\",\n        \"sender\": \"MERCHANT\",\n        \"message_type\": \"INVITATION_CARD\",\n        \"content\": \"邀请你测评智能颈部按摩仪，佣金高，样品名额有限。\",\n        \"send_time\": \"2026-07-02T16:20:00+08:00\",\n        \"invitation_card\": {\n          \"intro\": \"智能颈部按摩仪适合办公、健康生活类内容，活动期有达人专属佣金。\",\n          \"products\": [\n            {\n              \"product_id\": \"prod_2004\",\n              \"name\": \"智能颈部按摩仪\",\n              \"commission\": 28\n            }\n          ]\n        }\n      },\n      {\n        \"message_id\": \"msg_3002_002\",\n        \"sender\": \"USER\",\n        \"message_type\": \"TEXT\",\n        \"content\": \"这个品可以给我专属佣金吗？另外是否能免费申样？\",\n        \"send_time\": \"2026-07-02T16:43:00+08:00\"\n      },\n      {\n        \"message_id\": \"msg_3002_003\",\n        \"sender\": \"MERCHANT\",\n        \"message_type\": \"TEXT\",\n        \"content\": \"可以申请专属佣金，当前可给到 32%。免费样品名额暂时满了，也可以走买样报销流程。\",\n        \"send_time\": \"2026-07-02T17:05:00+08:00\"\n      },\n      {\n        \"message_id\": \"msg_3002_004\",\n        \"sender\": \"MERCHANT\",\n        \"message_type\": \"CONTACT_CARD\",\n        \"content\": \"这是品牌商务联系方式，方便后续同步脚本和素材。\",\n        \"send_time\": \"2026-07-02T17:06:00+08:00\",\n        \"contact_card\": {\n          \"name\": \"品牌商务-阿宁\",\n          \"phone\": \"13800000001\",\n          \"wechat\": \"brand_aning\"\n        }\n      },\n      {\n        \"message_id\": \"msg_1783335663569272000\",\n        \"sender\": \"USER\",\n        \"message_type\": \"TEXT\",\n        \"content\": \"你好，这是我的联系方式，方便后续沟通合作~ \\n电话：16603860497\\n微信：WeChat\",\n        \"send_time\": \"2026-07-06T19:01:03+08:00\"\n      },\n      {\n        \"message_id\": \"msg_1783337260219850000\",\n        \"sender\": \"USER\",\n        \"message_type\": \"TEXT\",\n        \"content\": \"你好阿宁，我刚想把智能颈部按摩仪加入选品车，但提示类目不匹配，无法加入。请问能不能帮忙设置一下商品类目的限制？这样我这边就能正常加品了，谢谢！\",\n        \"send_time\": \"2026-07-06T19:27:40+08:00\"\n      }\n    ]\n  },\n  {\n    \"conversation_id\": \"conv_im_3005\",\n    \"messages\": [\n      {\n        \"message_id\": \"msg_3005_001\",\n        \"sender\": \"MERCHANT\",\n        \"message_type\": \"INVITATION_CARD\",\n        \"content\": \"防晒隔离乳夏季活动邀约，佣金 20.5%，可提供脚本参考。\",\n        \"send_time\": \"2026-07-01T11:00:00+08:00\",\n        \"invitation_card\": {\n          \"intro\": \"夏季防晒重点推广，适合通勤、户外、防晒测评内容。\",\n          \"products\": [\n            {\n              \"product_id\": \"prod_2005\",\n              \"name\": \"防晒隔离乳\",\n              \"commission\": 20.5\n            }\n          ]\n        }\n      },\n      {\n        \"message_id\": \"msg_3005_002\",\n        \"sender\": \"MERCHANT\",\n        \"message_type\": \"TEXT\",\n        \"content\": \"如果你这周有排期，我们可以优先安排寄样。\",\n        \"send_time\": \"2026-07-02T09:30:00+08:00\"\n      }\n    ]\n  },\n  {\n    \"conversation_id\": \"conv_im_3006\",\n    \"messages\": [\n      {\n        \"message_id\": \"msg_3006_001\",\n        \"sender\": \"MERCHANT\",\n        \"message_type\": \"INVITATION_CARD\",\n        \"content\": \"邀请你推广低脂燕麦脆礼盒，支持免费样品。\",\n        \"send_time\": \"2026-07-02T12:10:00+08:00\",\n        \"invitation_card\": {\n          \"intro\": \"低脂健康零食，主打下午茶和健身轻食场景。\",\n          \"products\": [\n            {\n              \"product_id\": \"prod_2003\",\n              \"name\": \"低脂燕麦脆礼盒\",\n              \"commission\": 15\n            }\n          ]\n        }\n      },\n      {\n        \"message_id\": \"msg_3006_002\",\n        \"sender\": \"USER\",\n        \"message_type\": \"TEXT\",\n        \"content\": \"我近期主要做美妆护肤，这个食品类暂时不接。\",\n        \"send_time\": \"2026-07-02T13:05:00+08:00\"\n      },\n      {\n        \"message_id\": \"msg_3006_003\",\n        \"sender\": \"MERCHANT\",\n        \"message_type\": \"TEXT\",\n        \"content\": \"了解，后续如果有护肤联名礼盒再联系你。\",\n        \"send_time\": \"2026-07-02T13:20:00+08:00\"\n      }\n    ]\n  },\n  {\n    \"conversation_id\": \"conv_im_3007\",\n    \"messages\": [\n      {\n        \"message_id\": \"msg_3007_001\",\n        \"sender\": \"MERCHANT\",\n        \"message_type\": \"INVITATION_CARD\",\n        \"content\": \"高客单护肤精华邀约，首单佣金 18.5%。\",\n        \"send_time\": \"2026-07-04T09:00:00+08:00\",\n        \"invitation_card\": {\n          \"intro\": \"高客单精华新品测试，适合成分党和功效护肤内容。\",\n          \"products\": [\n            {\n              \"product_id\": \"prod_2001\",\n              \"name\": \"轻润保湿精华\",\n              \"commission\": 18.5\n            }\n          ]\n        }\n      },\n      {\n        \"message_id\": \"msg_3007_002\",\n        \"sender\": \"USER\",\n        \"message_type\": \"TEXT\",\n        \"content\": \"如果我排一条测评视频，可以给到专属佣金 25% 吗？\",\n        \"send_time\": \"2026-07-04T09:18:00+08:00\"\n      }\n    ]\n  }\n]"
+          }
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "ended_at": "2026-07-06T16:39:39.623096Z",
+      "kind": "model_answer",
+      "type": "DeepSeek",
+      "component": "ChatModel",
+      "model": "deepseek-chat",
+      "output": {
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"new_offers\": [\n    {\n      \"conversation_id\": \"conv_im_3001\",\n      \"title\": \"轻润保湿精华新品首发\",\n      \"summary\": \"商家邀约推广保湿精华及防晒乳，支持免费申样，用户尚未回复。\",\n      \"latest_time\": \"2026-07-03T10:30:00+08:00\",\n      \"product_ids\": [\"prod_2001\", \"prod_2005\"],\n      \"product_names\": [\"轻润保湿精华\", \"防晒隔离乳\"],\n      \"evidence\": [\"商家发送了邀请卡：支持免费申样和素材包\"],\n      \"answer_status\": \"new_offer\",\n      \"next_action\": \"回复商家表达意向，或询问申样流程。\"\n    },\n    {\n      \"conversation_id\": \"conv_im_3005\",\n      \"title\": \"防晒隔离乳夏季活动\",\n      \"summary\": \"商家邀请推广防晒乳并询问排期，用户尚未回应。\",\n      \"latest_time\": \"2026-07-02T09:30:00+08:00\",\n      \"product_ids\": [\"prod_2005\"],\n      \"product_names\": [\"防晒隔离乳\"],\n      \"evidence\": [\"商家问：如果你这周有排期，可以优先寄样\"],\n      \"answer_status\": \"new_offer\",\n      \"next_action\": \"回复商家是否有排期，确认寄样。\"\n    }\n  ],\n  \"conversation_summaries\": {\n    \"agreed\": [\n      {\n        \"conversation_id\": \"conv_im_3002\",\n        \"title\": \"智能颈部按摩仪\",\n        \"summary\": \"商家同意申请专属佣金32%，买样报销，并提供了商务联系方式；用户后续发送了联系方式并反映类目不匹配问题。\",\n        \"latest_time\": \"2026-07-06T19:27:40+08:00\",\n        \"product_ids\": [\"prod_2004\"],\n        \"product_names\": [\"智能颈部按摩仪\"],\n        \"evidence\": [\n          \"商家：可以申请专属佣金，当前可给到32%\",\n          \"商家提供了品牌商务联系方式\",\n          \"用户：提示类目不匹配，无法加入\"\n        ],\n        \"answer_status\": \"agreed\",\n        \"next_action\": \"跟进类目不匹配问题，请商家调整商品类目限制。\"\n      }\n    ],\n    \"rejected\": [\n      {\n        \"conversation_id\": \"conv_im_3006\",\n        \"title\": \"低脂燕麦脆礼盒\",\n        \"summary\": \"用户明确拒绝食品类合作，商家表示后续再联系。\",\n        \"latest_time\": \"2026-07-02T13:20:00+08:00\",\n        \"product_ids\": [\"prod_2003\"],\n        \"product_names\": [\"低脂燕麦脆礼盒\"],\n        \"evidence\": [\n          \"用户：这个食品类暂时不接\",\n          \"商家：了解，后续有护肤联名礼盒再联系\"\n        ],\n        \"answer_status\": \"rejected\",\n        \"next_action\": \"无进一步行动。\"\n      }\n    ],\n    \"need_follow_up\": [\n      {\n        \"conversation_id\": \"conv_im_3007\",\n        \"title\": \"轻润保湿精华（高客单）\",\n        \"summary\": \"用户询问是否能给25%专属佣金，商家尚未回复。\",\n        \"latest_time\": \"2026-07-04T09:18:00+08:00\",\n        \"product_ids\": [\"prod_2001\"],\n        \"product_names\": [\"轻润保湿精华\"],\n        \"evidence\": [\n          \"用户：如果我排一条测评视频，可以给到专属佣金25%吗？\"\n        ],\n        \"answer_status\": \"need_follow_up\",\n        \"next_action\": \"等待商家回复佣金条件，或主动询问。\"\n      }\n    ]\n  },\n  \"updated_at\": \"2026-07-06T19:27:40+08:00\"\n}"
+        },
+        "usage": {
+          "PromptTokens": 2188,
+          "PromptTokenDetails": {
+            "CachedTokens": 2176
+          },
+          "CompletionTokens": 858,
+          "TotalTokens": 3046,
+          "completion_token_details": {}
+        }
+      }
+    },
+    {
+      "index": 7,
+      "ended_at": "2026-07-06T16:39:39.623111Z",
+      "kind": "lambda_end",
+      "component": "Lambda",
+      "output": {
+        "Bundle": {
+          "conversations": [
+            {
+              "conversation_id": "conv_im_3001",
+              "messages": [
+                {
+                  "content": "邀请你参与轻润保湿精华新品首发推广，支持免费申样。",
+                  "invitation_card": {
+                    "intro": "新品保湿精华首发，适合美妆护肤内容，支持免费申样和专属素材包。",
+                    "products": [
+                      {
+                        "commission": 18.5,
+                        "name": "轻润保湿精华",
+                        "product_id": "prod_2001"
+                      },
+                      {
+                        "commission": 20.5,
+                        "name": "防晒隔离乳",
+                        "product_id": "prod_2005"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3001_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-03T10:30:00+08:00",
+                  "sender": "MERCHANT"
+                }
+              ]
+            },
+            {
+              "conversation_id": "conv_im_3002",
+              "messages": [
+                {
+                  "content": "邀请你测评智能颈部按摩仪，佣金高，样品名额有限。",
+                  "invitation_card": {
+                    "intro": "智能颈部按摩仪适合办公、健康生活类内容，活动期有达人专属佣金。",
+                    "products": [
+                      {
+                        "commission": 28,
+                        "name": "智能颈部按摩仪",
+                        "product_id": "prod_2004"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3002_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-02T16:20:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "这个品可以给我专属佣金吗？另外是否能免费申样？",
+                  "message_id": "msg_3002_002",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T16:43:00+08:00",
+                  "sender": "USER"
+                },
+                {
+                  "content": "可以申请专属佣金，当前可给到 32%。免费样品名额暂时满了，也可以走买样报销流程。",
+                  "message_id": "msg_3002_003",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T17:05:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "contact_card": {
+                    "name": "品牌商务-阿宁",
+                    "phone": "13800000001",
+                    "wechat": "brand_aning"
+                  },
+                  "content": "这是品牌商务联系方式，方便后续同步脚本和素材。",
+                  "message_id": "msg_3002_004",
+                  "message_type": "CONTACT_CARD",
+                  "send_time": "2026-07-02T17:06:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "你好，这是我的联系方式，方便后续沟通合作~ \n电话：16603860497\n微信：WeChat",
+                  "message_id": "msg_1783335663569272000",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-06T19:01:03+08:00",
+                  "sender": "USER"
+                },
+                {
+                  "content": "你好阿宁，我刚想把智能颈部按摩仪加入选品车，但提示类目不匹配，无法加入。请问能不能帮忙设置一下商品类目的限制？这样我这边就能正常加品了，谢谢！",
+                  "message_id": "msg_1783337260219850000",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-06T19:27:40+08:00",
+                  "sender": "USER"
+                }
+              ]
+            },
+            {
+              "conversation_id": "conv_im_3005",
+              "messages": [
+                {
+                  "content": "防晒隔离乳夏季活动邀约，佣金 20.5%，可提供脚本参考。",
+                  "invitation_card": {
+                    "intro": "夏季防晒重点推广，适合通勤、户外、防晒测评内容。",
+                    "products": [
+                      {
+                        "commission": 20.5,
+                        "name": "防晒隔离乳",
+                        "product_id": "prod_2005"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3005_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-01T11:00:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "如果你这周有排期，我们可以优先安排寄样。",
+                  "message_id": "msg_3005_002",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T09:30:00+08:00",
+                  "sender": "MERCHANT"
+                }
+              ]
+            },
+            {
+              "conversation_id": "conv_im_3006",
+              "messages": [
+                {
+                  "content": "邀请你推广低脂燕麦脆礼盒，支持免费样品。",
+                  "invitation_card": {
+                    "intro": "低脂健康零食，主打下午茶和健身轻食场景。",
+                    "products": [
+                      {
+                        "commission": 15,
+                        "name": "低脂燕麦脆礼盒",
+                        "product_id": "prod_2003"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3006_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-02T12:10:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "我近期主要做美妆护肤，这个食品类暂时不接。",
+                  "message_id": "msg_3006_002",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T13:05:00+08:00",
+                  "sender": "USER"
+                },
+                {
+                  "content": "了解，后续如果有护肤联名礼盒再联系你。",
+                  "message_id": "msg_3006_003",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T13:20:00+08:00",
+                  "sender": "MERCHANT"
+                }
+              ]
+            },
+            {
+              "conversation_id": "conv_im_3007",
+              "messages": [
+                {
+                  "content": "高客单护肤精华邀约，首单佣金 18.5%。",
+                  "invitation_card": {
+                    "intro": "高客单精华新品测试，适合成分党和功效护肤内容。",
+                    "products": [
+                      {
+                        "commission": 18.5,
+                        "name": "轻润保湿精华",
+                        "product_id": "prod_2001"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3007_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-04T09:00:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "如果我排一条测评视频，可以给到专属佣金 25% 吗？",
+                  "message_id": "msg_3007_002",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-04T09:18:00+08:00",
+                  "sender": "USER"
+                }
+              ]
+            }
+          ],
+          "user_id": "user_1001"
+        },
+        "Raw": "{\n  \"new_offers\": [\n    {\n      \"conversation_id\": \"conv_im_3001\",\n      \"title\": \"轻润保湿精华新品首发\",\n      \"summary\": \"商家邀约推广保湿精华及防晒乳，支持免费申样，用户尚未回复。\",\n      \"latest_time\": \"2026-07-03T10:30:00+08:00\",\n      \"product_ids\": [\"prod_2001\", \"prod_2005\"],\n      \"product_names\": [\"轻润保湿精华\", \"防晒隔离乳\"],\n      \"evidence\": [\"商家发送了邀请卡：支持免费申样和素材包\"],\n      \"answer_status\": \"new_offer\",\n      \"next_action\": \"回复商家表达意向，或询问申样流程。\"\n    },\n    {\n      \"conversation_id\": \"conv_im_3005\",\n      \"title\": \"防晒隔离乳夏季活动\",\n      \"summary\": \"商家邀请推广防晒乳并询问排期，用户尚未回应。\",\n      \"latest_time\": \"2026-07-02T09:30:00+08:00\",\n      \"product_ids\": [\"prod_2005\"],\n      \"product_names\": [\"防晒隔离乳\"],\n      \"evidence\": [\"商家问：如果你这周有排期，可以优先寄样\"],\n      \"answer_status\": \"new_offer\",\n      \"next_action\": \"回复商家是否有排期，确认寄样。\"\n    }\n  ],\n  \"conversation_summaries\": {\n    \"agreed\": [\n      {\n        \"conversation_id\": \"conv_im_3002\",\n        \"title\": \"智能颈部按摩仪\",\n        \"summary\": \"商家同意申请专属佣金32%，买样报销，并提供了商务联系方式；用户后续发送了联系方式并反映类目不匹配问题。\",\n        \"latest_time\": \"2026-07-06T19:27:40+08:00\",\n        \"product_ids\": [\"prod_2004\"],\n        \"product_names\": [\"智能颈部按摩仪\"],\n        \"evidence\": [\n          \"商家：可以申请专属佣金，当前可给到32%\",\n          \"商家提供了品牌商务联系方式\",\n          \"用户：提示类目不匹配，无法加入\"\n        ],\n        \"answer_status\": \"agreed\",\n        \"next_action\": \"跟进类目不匹配问题，请商家调整商品类目限制。\"\n      }\n    ],\n    \"rejected\": [\n      {\n        \"conversation_id\": \"conv_im_3006\",\n        \"title\": \"低脂燕麦脆礼盒\",\n        \"summary\": \"用户明确拒绝食品类合作，商家表示后续再联系。\",\n        \"latest_time\": \"2026-07-02T13:20:00+08:00\",\n        \"product_ids\": [\"prod_2003\"],\n        \"product_names\": [\"低脂燕麦脆礼盒\"],\n        \"evidence\": [\n          \"用户：这个食品类暂时不接\",\n          \"商家：了解，后续有护肤联名礼盒再联系\"\n        ],\n        \"answer_status\": \"rejected\",\n        \"next_action\": \"无进一步行动。\"\n      }\n    ],\n    \"need_follow_up\": [\n      {\n        \"conversation_id\": \"conv_im_3007\",\n        \"title\": \"轻润保湿精华（高客单）\",\n        \"summary\": \"用户询问是否能给25%专属佣金，商家尚未回复。\",\n        \"latest_time\": \"2026-07-04T09:18:00+08:00\",\n        \"product_ids\": [\"prod_2001\"],\n        \"product_names\": [\"轻润保湿精华\"],\n        \"evidence\": [\n          \"用户：如果我排一条测评视频，可以给到专属佣金25%吗？\"\n        ],\n        \"answer_status\": \"need_follow_up\",\n        \"next_action\": \"等待商家回复佣金条件，或主动询问。\"\n      }\n    ]\n  },\n  \"updated_at\": \"2026-07-06T19:27:40+08:00\"\n}"
+      }
+    },
+    {
+      "index": 8,
+      "started_at": "2026-07-06T16:39:39.623535Z",
+      "kind": "lambda_start",
+      "component": "Lambda",
+      "input": {
+        "Bundle": {
+          "conversations": [
+            {
+              "conversation_id": "conv_im_3001",
+              "messages": [
+                {
+                  "content": "邀请你参与轻润保湿精华新品首发推广，支持免费申样。",
+                  "invitation_card": {
+                    "intro": "新品保湿精华首发，适合美妆护肤内容，支持免费申样和专属素材包。",
+                    "products": [
+                      {
+                        "commission": 18.5,
+                        "name": "轻润保湿精华",
+                        "product_id": "prod_2001"
+                      },
+                      {
+                        "commission": 20.5,
+                        "name": "防晒隔离乳",
+                        "product_id": "prod_2005"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3001_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-03T10:30:00+08:00",
+                  "sender": "MERCHANT"
+                }
+              ]
+            },
+            {
+              "conversation_id": "conv_im_3002",
+              "messages": [
+                {
+                  "content": "邀请你测评智能颈部按摩仪，佣金高，样品名额有限。",
+                  "invitation_card": {
+                    "intro": "智能颈部按摩仪适合办公、健康生活类内容，活动期有达人专属佣金。",
+                    "products": [
+                      {
+                        "commission": 28,
+                        "name": "智能颈部按摩仪",
+                        "product_id": "prod_2004"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3002_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-02T16:20:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "这个品可以给我专属佣金吗？另外是否能免费申样？",
+                  "message_id": "msg_3002_002",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T16:43:00+08:00",
+                  "sender": "USER"
+                },
+                {
+                  "content": "可以申请专属佣金，当前可给到 32%。免费样品名额暂时满了，也可以走买样报销流程。",
+                  "message_id": "msg_3002_003",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T17:05:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "contact_card": {
+                    "name": "品牌商务-阿宁",
+                    "phone": "13800000001",
+                    "wechat": "brand_aning"
+                  },
+                  "content": "这是品牌商务联系方式，方便后续同步脚本和素材。",
+                  "message_id": "msg_3002_004",
+                  "message_type": "CONTACT_CARD",
+                  "send_time": "2026-07-02T17:06:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "你好，这是我的联系方式，方便后续沟通合作~ \n电话：16603860497\n微信：WeChat",
+                  "message_id": "msg_1783335663569272000",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-06T19:01:03+08:00",
+                  "sender": "USER"
+                },
+                {
+                  "content": "你好阿宁，我刚想把智能颈部按摩仪加入选品车，但提示类目不匹配，无法加入。请问能不能帮忙设置一下商品类目的限制？这样我这边就能正常加品了，谢谢！",
+                  "message_id": "msg_1783337260219850000",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-06T19:27:40+08:00",
+                  "sender": "USER"
+                }
+              ]
+            },
+            {
+              "conversation_id": "conv_im_3005",
+              "messages": [
+                {
+                  "content": "防晒隔离乳夏季活动邀约，佣金 20.5%，可提供脚本参考。",
+                  "invitation_card": {
+                    "intro": "夏季防晒重点推广，适合通勤、户外、防晒测评内容。",
+                    "products": [
+                      {
+                        "commission": 20.5,
+                        "name": "防晒隔离乳",
+                        "product_id": "prod_2005"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3005_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-01T11:00:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "如果你这周有排期，我们可以优先安排寄样。",
+                  "message_id": "msg_3005_002",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T09:30:00+08:00",
+                  "sender": "MERCHANT"
+                }
+              ]
+            },
+            {
+              "conversation_id": "conv_im_3006",
+              "messages": [
+                {
+                  "content": "邀请你推广低脂燕麦脆礼盒，支持免费样品。",
+                  "invitation_card": {
+                    "intro": "低脂健康零食，主打下午茶和健身轻食场景。",
+                    "products": [
+                      {
+                        "commission": 15,
+                        "name": "低脂燕麦脆礼盒",
+                        "product_id": "prod_2003"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3006_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-02T12:10:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "我近期主要做美妆护肤，这个食品类暂时不接。",
+                  "message_id": "msg_3006_002",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T13:05:00+08:00",
+                  "sender": "USER"
+                },
+                {
+                  "content": "了解，后续如果有护肤联名礼盒再联系你。",
+                  "message_id": "msg_3006_003",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-02T13:20:00+08:00",
+                  "sender": "MERCHANT"
+                }
+              ]
+            },
+            {
+              "conversation_id": "conv_im_3007",
+              "messages": [
+                {
+                  "content": "高客单护肤精华邀约，首单佣金 18.5%。",
+                  "invitation_card": {
+                    "intro": "高客单精华新品测试，适合成分党和功效护肤内容。",
+                    "products": [
+                      {
+                        "commission": 18.5,
+                        "name": "轻润保湿精华",
+                        "product_id": "prod_2001"
+                      }
+                    ]
+                  },
+                  "message_id": "msg_3007_001",
+                  "message_type": "INVITATION_CARD",
+                  "send_time": "2026-07-04T09:00:00+08:00",
+                  "sender": "MERCHANT"
+                },
+                {
+                  "content": "如果我排一条测评视频，可以给到专属佣金 25% 吗？",
+                  "message_id": "msg_3007_002",
+                  "message_type": "TEXT",
+                  "send_time": "2026-07-04T09:18:00+08:00",
+                  "sender": "USER"
+                }
+              ]
+            }
+          ],
+          "user_id": "user_1001"
+        },
+        "Raw": "{\n  \"new_offers\": [\n    {\n      \"conversation_id\": \"conv_im_3001\",\n      \"title\": \"轻润保湿精华新品首发\",\n      \"summary\": \"商家邀约推广保湿精华及防晒乳，支持免费申样，用户尚未回复。\",\n      \"latest_time\": \"2026-07-03T10:30:00+08:00\",\n      \"product_ids\": [\"prod_2001\", \"prod_2005\"],\n      \"product_names\": [\"轻润保湿精华\", \"防晒隔离乳\"],\n      \"evidence\": [\"商家发送了邀请卡：支持免费申样和素材包\"],\n      \"answer_status\": \"new_offer\",\n      \"next_action\": \"回复商家表达意向，或询问申样流程。\"\n    },\n    {\n      \"conversation_id\": \"conv_im_3005\",\n      \"title\": \"防晒隔离乳夏季活动\",\n      \"summary\": \"商家邀请推广防晒乳并询问排期，用户尚未回应。\",\n      \"latest_time\": \"2026-07-02T09:30:00+08:00\",\n      \"product_ids\": [\"prod_2005\"],\n      \"product_names\": [\"防晒隔离乳\"],\n      \"evidence\": [\"商家问：如果你这周有排期，可以优先寄样\"],\n      \"answer_status\": \"new_offer\",\n      \"next_action\": \"回复商家是否有排期，确认寄样。\"\n    }\n  ],\n  \"conversation_summaries\": {\n    \"agreed\": [\n      {\n        \"conversation_id\": \"conv_im_3002\",\n        \"title\": \"智能颈部按摩仪\",\n        \"summary\": \"商家同意申请专属佣金32%，买样报销，并提供了商务联系方式；用户后续发送了联系方式并反映类目不匹配问题。\",\n        \"latest_time\": \"2026-07-06T19:27:40+08:00\",\n        \"product_ids\": [\"prod_2004\"],\n        \"product_names\": [\"智能颈部按摩仪\"],\n        \"evidence\": [\n          \"商家：可以申请专属佣金，当前可给到32%\",\n          \"商家提供了品牌商务联系方式\",\n          \"用户：提示类目不匹配，无法加入\"\n        ],\n        \"answer_status\": \"agreed\",\n        \"next_action\": \"跟进类目不匹配问题，请商家调整商品类目限制。\"\n      }\n    ],\n    \"rejected\": [\n      {\n        \"conversation_id\": \"conv_im_3006\",\n        \"title\": \"低脂燕麦脆礼盒\",\n        \"summary\": \"用户明确拒绝食品类合作，商家表示后续再联系。\",\n        \"latest_time\": \"2026-07-02T13:20:00+08:00\",\n        \"product_ids\": [\"prod_2003\"],\n        \"product_names\": [\"低脂燕麦脆礼盒\"],\n        \"evidence\": [\n          \"用户：这个食品类暂时不接\",\n          \"商家：了解，后续有护肤联名礼盒再联系\"\n        ],\n        \"answer_status\": \"rejected\",\n        \"next_action\": \"无进一步行动。\"\n      }\n    ],\n    \"need_follow_up\": [\n      {\n        \"conversation_id\": \"conv_im_3007\",\n        \"title\": \"轻润保湿精华（高客单）\",\n        \"summary\": \"用户询问是否能给25%专属佣金，商家尚未回复。\",\n        \"latest_time\": \"2026-07-04T09:18:00+08:00\",\n        \"product_ids\": [\"prod_2001\"],\n        \"product_names\": [\"轻润保湿精华\"],\n        \"evidence\": [\n          \"用户：如果我排一条测评视频，可以给到专属佣金25%吗？\"\n        ],\n        \"answer_status\": \"need_follow_up\",\n        \"next_action\": \"等待商家回复佣金条件，或主动询问。\"\n      }\n    ]\n  },\n  \"updated_at\": \"2026-07-06T19:27:40+08:00\"\n}"
+      }
+    },
+    {
+      "index": 9,
+      "ended_at": "2026-07-06T16:39:39.624046Z",
+      "kind": "lambda_end",
+      "component": "Lambda",
+      "output": {
+        "conversation_summaries": {
+          "agreed": [
+            {
+              "answer_status": "agreed",
+              "conversation_id": "conv_im_3002",
+              "evidence": [
+                "商家：可以申请专属佣金，当前可给到32%",
+                "商家提供了品牌商务联系方式",
+                "用户：提示类目不匹配，无法加入"
+              ],
+              "latest_time": "2026-07-06T19:27:40+08:00",
+              "next_action": "跟进类目不匹配问题，请商家调整商品类目限制。",
+              "product_ids": [
+                "prod_2004"
+              ],
+              "product_names": [
+                "智能颈部按摩仪"
+              ],
+              "summary": "商家同意申请专属佣金32%，买样报销，并提供了商务联系方式；用户后续发送了联系方式并反映类目不匹配问题。",
+              "title": "智能颈部按摩仪"
+            }
+          ],
+          "need_follow_up": [
+            {
+              "answer_status": "need_follow_up",
+              "conversation_id": "conv_im_3007",
+              "evidence": [
+                "用户：如果我排一条测评视频，可以给到专属佣金25%吗？"
+              ],
+              "latest_time": "2026-07-04T09:18:00+08:00",
+              "next_action": "等待商家回复佣金条件，或主动询问。",
+              "product_ids": [
+                "prod_2001"
+              ],
+              "product_names": [
+                "轻润保湿精华"
+              ],
+              "summary": "用户询问是否能给25%专属佣金，商家尚未回复。",
+              "title": "轻润保湿精华（高客单）"
+            }
+          ],
+          "rejected": [
+            {
+              "answer_status": "rejected",
+              "conversation_id": "conv_im_3006",
+              "evidence": [
+                "用户：这个食品类暂时不接",
+                "商家：了解，后续有护肤联名礼盒再联系"
+              ],
+              "latest_time": "2026-07-02T13:20:00+08:00",
+              "next_action": "无进一步行动。",
+              "product_ids": [
+                "prod_2003"
+              ],
+              "product_names": [
+                "低脂燕麦脆礼盒"
+              ],
+              "summary": "用户明确拒绝食品类合作，商家表示后续再联系。",
+              "title": "低脂燕麦脆礼盒"
+            }
+          ]
+        },
+        "new_offers": [
+          {
+            "answer_status": "new_offer",
+            "conversation_id": "conv_im_3001",
+            "evidence": [
+              "商家发送了邀请卡：支持免费申样和素材包"
+            ],
+            "latest_time": "2026-07-03T10:30:00+08:00",
+            "next_action": "回复商家表达意向，或询问申样流程。",
+            "product_ids": [
+              "prod_2001",
+              "prod_2005"
+            ],
+            "product_names": [
+              "轻润保湿精华",
+              "防晒隔离乳"
+            ],
+            "summary": "商家邀约推广保湿精华及防晒乳，支持免费申样，用户尚未回复。",
+            "title": "轻润保湿精华新品首发"
+          },
+          {
+            "answer_status": "new_offer",
+            "conversation_id": "conv_im_3005",
+            "evidence": [
+              "商家问：如果你这周有排期，可以优先寄样"
+            ],
+            "latest_time": "2026-07-02T09:30:00+08:00",
+            "next_action": "回复商家是否有排期，确认寄样。",
+            "product_ids": [
+              "prod_2005"
+            ],
+            "product_names": [
+              "防晒隔离乳"
+            ],
+            "summary": "商家邀请推广防晒乳并询问排期，用户尚未回应。",
+            "title": "防晒隔离乳夏季活动"
+          }
+        ],
+        "updated_at": "2026-07-06T19:27:40+08:00"
+      }
+    },
+    {
+      "index": 10,
+      "ended_at": "2026-07-06T16:39:39.624182Z",
+      "kind": "graph_end",
+      "name": "im_chat_summary_graph",
+      "component": "Graph",
+      "output": {
+        "conversation_summaries": {
+          "agreed": [
+            {
+              "answer_status": "agreed",
+              "conversation_id": "conv_im_3002",
+              "evidence": [
+                "商家：可以申请专属佣金，当前可给到32%",
+                "商家提供了品牌商务联系方式",
+                "用户：提示类目不匹配，无法加入"
+              ],
+              "latest_time": "2026-07-06T19:27:40+08:00",
+              "next_action": "跟进类目不匹配问题，请商家调整商品类目限制。",
+              "product_ids": [
+                "prod_2004"
+              ],
+              "product_names": [
+                "智能颈部按摩仪"
+              ],
+              "summary": "商家同意申请专属佣金32%，买样报销，并提供了商务联系方式；用户后续发送了联系方式并反映类目不匹配问题。",
+              "title": "智能颈部按摩仪"
+            }
+          ],
+          "need_follow_up": [
+            {
+              "answer_status": "need_follow_up",
+              "conversation_id": "conv_im_3007",
+              "evidence": [
+                "用户：如果我排一条测评视频，可以给到专属佣金25%吗？"
+              ],
+              "latest_time": "2026-07-04T09:18:00+08:00",
+              "next_action": "等待商家回复佣金条件，或主动询问。",
+              "product_ids": [
+                "prod_2001"
+              ],
+              "product_names": [
+                "轻润保湿精华"
+              ],
+              "summary": "用户询问是否能给25%专属佣金，商家尚未回复。",
+              "title": "轻润保湿精华（高客单）"
+            }
+          ],
+          "rejected": [
+            {
+              "answer_status": "rejected",
+              "conversation_id": "conv_im_3006",
+              "evidence": [
+                "用户：这个食品类暂时不接",
+                "商家：了解，后续有护肤联名礼盒再联系"
+              ],
+              "latest_time": "2026-07-02T13:20:00+08:00",
+              "next_action": "无进一步行动。",
+              "product_ids": [
+                "prod_2003"
+              ],
+              "product_names": [
+                "低脂燕麦脆礼盒"
+              ],
+              "summary": "用户明确拒绝食品类合作，商家表示后续再联系。",
+              "title": "低脂燕麦脆礼盒"
+            }
+          ]
+        },
+        "new_offers": [
+          {
+            "answer_status": "new_offer",
+            "conversation_id": "conv_im_3001",
+            "evidence": [
+              "商家发送了邀请卡：支持免费申样和素材包"
+            ],
+            "latest_time": "2026-07-03T10:30:00+08:00",
+            "next_action": "回复商家表达意向，或询问申样流程。",
+            "product_ids": [
+              "prod_2001",
+              "prod_2005"
+            ],
+            "product_names": [
+              "轻润保湿精华",
+              "防晒隔离乳"
+            ],
+            "summary": "商家邀约推广保湿精华及防晒乳，支持免费申样，用户尚未回复。",
+            "title": "轻润保湿精华新品首发"
+          },
+          {
+            "answer_status": "new_offer",
+            "conversation_id": "conv_im_3005",
+            "evidence": [
+              "商家问：如果你这周有排期，可以优先寄样"
+            ],
+            "latest_time": "2026-07-02T09:30:00+08:00",
+            "next_action": "回复商家是否有排期，确认寄样。",
+            "product_ids": [
+              "prod_2005"
+            ],
+            "product_names": [
+              "防晒隔离乳"
+            ],
+            "summary": "商家邀请推广防晒乳并询问排期，用户尚未回应。",
+            "title": "防晒隔离乳夏季活动"
+          }
+        ],
+        "updated_at": "2026-07-06T19:27:40+08:00"
+      }
+    }
+  ]
+}
