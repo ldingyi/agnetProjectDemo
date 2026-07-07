@@ -40,6 +40,7 @@ type ThirdConfig struct {
 	TargetAddr  string
 }
 
+// LoadConfig 从环境变量加载后端运行配置，缺省值用于本地 demo 启动。
 func LoadConfig() Config {
 	return Config{
 		DeepSeek: DeepSeekConfig{
@@ -60,6 +61,7 @@ func LoadConfig() Config {
 	}
 }
 
+// getEnv 读取环境变量；变量为空时返回调用方提供的默认值。
 func getEnv(key string, fallback string) string {
 	if value := os.Getenv(key); value != "" {
 		return value

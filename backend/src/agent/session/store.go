@@ -6,32 +6,31 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"sort"
 	"strings"
 	"sync"
 	"time"
 
-	"agnet-project-demo/backend/kitex_gen/chat"
-
 	"github.com/google/uuid"
 )
 
-type Info struct {
-	ID        string
-	Title     string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+// ContextMessage 是 agent 可见的上下文消息。它保存模型下一轮运行需要读取的内容，
+// 不承担前端聊天记录展示职责。
+type ContextMessage struct {
+	Role    string `json:"role"`
+	Content string `json:"content"`
 }
 
+// Session 是 agent 上下文会话模型，只保存模型可见上下文。
 type Session struct {
 	id        string
 	createdAt time.Time
 	updatedAt time.Time
 	filePath  string
 	mu        sync.Mutex
-	messages  []*chat.ChatMessage
+	messages  []*ContextMessage
 }
 
+// Store 按用户目录管理 agent 上下文文件；每个上下文会话一个 jsonl。
 type Store struct {
 	dir   string
 	mu    sync.Mutex
@@ -45,14 +44,31 @@ type fileHeader struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type messageLine struct {
-	Type    string            `json:"type"`
-	Message *chat.ChatMessage `json:"message"`
+type contextLine struct {
+	Type    string          `json:"type"`
+	Context *ContextMessage `json:"context,omitempty"`
+	Message *legacyMessage  `json:"message,omitempty"`
 }
+
+type legacyMessage struct {
+	Role        string `json:"role"`
+	Content     string `json:"content"`
+	ContentType string `json:"content_type"`
+	Payload     string `json:"payload"`
+}
+
+const (
+	lineTypeHeader              = "agent_session"
+	lineTypeLegacyHeader        = "session"
+	lineTypeContextMessage      = "context_message"
+	lineTypeAgentContextMessage = "agent_context_message"
+	lineTypeLegacyMessage       = "message"
+	lineTypeLegacyChatMessage   = "chat_message"
+)
 
 func NewStore(dir string) (*Store, error) {
 	if err := os.MkdirAll(dir, 0o755); err != nil {
-		return nil, fmt.Errorf("create session dir: %w", err)
+		return nil, fmt.Errorf("create agent session dir: %w", err)
 	}
 	return &Store{
 		dir:   dir,
@@ -95,7 +111,7 @@ func (s *Store) GetOrCreate(id string) (*Session, error) {
 func (s *Store) Get(id string) (*Session, error) {
 	id = strings.TrimSpace(id)
 	if id == "" {
-		return nil, fmt.Errorf("session id is required")
+		return nil, fmt.Errorf("agent session id is required")
 	}
 
 	s.mu.Lock()
@@ -114,87 +130,61 @@ func (s *Store) Get(id string) (*Session, error) {
 	return sess, nil
 }
 
-func (s *Store) List() ([]Info, error) {
-	entries, err := os.ReadDir(s.dir)
-	if err != nil {
-		return nil, err
-	}
-
-	infos := make([]Info, 0, len(entries))
-	for _, entry := range entries {
-		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".jsonl") {
-			continue
-		}
-		sess, err := s.Get(strings.TrimSuffix(entry.Name(), ".jsonl"))
-		if err != nil {
-			continue
-		}
-		infos = append(infos, sess.Info())
-	}
-
-	sort.Slice(infos, func(i, j int) bool {
-		return infos[i].UpdatedAt.After(infos[j].UpdatedAt)
-	})
-	return infos, nil
-}
-
 func (s *Session) ID() string {
 	return s.id
 }
 
-func (s *Session) Info() Info {
+func (s *Session) Messages() []*ContextMessage {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	return Info{
-		ID:        s.id,
-		Title:     s.titleLocked(),
-		CreatedAt: s.createdAt,
-		UpdatedAt: s.updatedAt,
+	return cloneMessages(s.messages)
+}
+
+func (s *Session) Append(messages ...*ContextMessage) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	lines := make([]contextLine, 0, len(messages))
+	for _, msg := range messages {
+		if msg == nil {
+			continue
+		}
+		lines = append(lines, contextLine{
+			Type:    lineTypeContextMessage,
+			Context: cloneMessage(msg),
+		})
 	}
-}
-
-func (s *Session) Messages() []*chat.ChatMessage {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	messages := make([]*chat.ChatMessage, len(s.messages))
-	copy(messages, s.messages)
-	return messages
-}
-
-func (s *Session) Append(msg *chat.ChatMessage) error {
-	if msg == nil {
+	if len(lines) == 0 {
 		return nil
 	}
 
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	now := time.Now().UTC()
-	s.messages = append(s.messages, msg)
-	s.updatedAt = now
-
-	line := messageLine{
-		Type:    "message",
-		Message: msg,
-	}
-	data, err := json.Marshal(line)
-	if err != nil {
-		return err
+	encoded := make([][]byte, 0, len(lines))
+	for _, line := range lines {
+		data, err := json.Marshal(line)
+		if err != nil {
+			return err
+		}
+		encoded = append(encoded, data)
 	}
 
 	file, err := os.OpenFile(s.filePath, os.O_APPEND|os.O_WRONLY, 0o644)
 	if err != nil {
 		return err
 	}
-
-	if _, err = fmt.Fprintf(file, "%s\n", data); err != nil {
-		_ = file.Close()
-		return err
+	for _, data := range encoded {
+		if _, err = fmt.Fprintf(file, "%s\n", data); err != nil {
+			_ = file.Close()
+			return err
+		}
 	}
 	if err := file.Close(); err != nil {
 		return err
+	}
+
+	s.updatedAt = time.Now().UTC()
+	for _, line := range lines {
+		s.messages = append(s.messages, line.Context)
 	}
 	if stat, err := os.Stat(s.filePath); err == nil {
 		s.updatedAt = stat.ModTime().UTC()
@@ -202,23 +192,10 @@ func (s *Session) Append(msg *chat.ChatMessage) error {
 	return nil
 }
 
-func (s *Session) titleLocked() string {
-	for _, msg := range s.messages {
-		if msg != nil && msg.GetRole() == "user" && strings.TrimSpace(msg.GetContent()) != "" {
-			runes := []rune(strings.TrimSpace(msg.Content))
-			if len(runes) > 32 {
-				return string(runes[:32]) + "..."
-			}
-			return string(runes)
-		}
-	}
-	return "New Session"
-}
-
 func createSession(id string, filePath string) (*Session, error) {
 	now := time.Now().UTC()
 	header := fileHeader{
-		Type:      "session",
+		Type:      lineTypeHeader,
 		ID:        id,
 		CreatedAt: now,
 		UpdatedAt: now,
@@ -235,7 +212,7 @@ func createSession(id string, filePath string) (*Session, error) {
 		createdAt: now,
 		updatedAt: now,
 		filePath:  filePath,
-		messages:  make([]*chat.ChatMessage, 0),
+		messages:  make([]*ContextMessage, 0),
 	}, nil
 }
 
@@ -248,12 +225,15 @@ func loadSession(filePath string) (*Session, error) {
 
 	scanner := bufio.NewScanner(file)
 	if !scanner.Scan() {
-		return nil, fmt.Errorf("empty session file: %s", filePath)
+		return nil, fmt.Errorf("empty agent session file: %s", filePath)
 	}
 
 	var header fileHeader
 	if err := json.Unmarshal(scanner.Bytes(), &header); err != nil {
-		return nil, fmt.Errorf("bad session header: %w", err)
+		return nil, fmt.Errorf("bad agent session header: %w", err)
+	}
+	if header.Type != "" && header.Type != lineTypeHeader && header.Type != lineTypeLegacyHeader {
+		return nil, fmt.Errorf("unexpected agent session header type: %s", header.Type)
 	}
 
 	sess := &Session{
@@ -261,7 +241,7 @@ func loadSession(filePath string) (*Session, error) {
 		createdAt: header.CreatedAt,
 		updatedAt: header.UpdatedAt,
 		filePath:  filePath,
-		messages:  make([]*chat.ChatMessage, 0),
+		messages:  make([]*ContextMessage, 0),
 	}
 	if stat, err := os.Stat(filePath); err == nil {
 		sess.updatedAt = stat.ModTime().UTC()
@@ -272,11 +252,20 @@ func loadSession(filePath string) (*Session, error) {
 		if line == "" {
 			continue
 		}
-		var entry messageLine
-		if err := json.Unmarshal([]byte(line), &entry); err != nil || entry.Message == nil {
+		var entry contextLine
+		if err := json.Unmarshal([]byte(line), &entry); err != nil {
 			continue
 		}
-		sess.messages = append(sess.messages, entry.Message)
+		switch entry.Type {
+		case lineTypeContextMessage, lineTypeAgentContextMessage:
+			if entry.Context != nil {
+				sess.messages = append(sess.messages, entry.Context)
+			}
+		case lineTypeLegacyMessage, lineTypeLegacyChatMessage, "":
+			if entry.Message != nil {
+				sess.messages = append(sess.messages, contextFromLegacyMessage(entry.Message))
+			}
+		}
 		if header.UpdatedAt.IsZero() {
 			sess.updatedAt = header.CreatedAt
 		}
@@ -285,4 +274,43 @@ func loadSession(filePath string) (*Session, error) {
 		return nil, err
 	}
 	return sess, nil
+}
+
+func contextFromLegacyMessage(message *legacyMessage) *ContextMessage {
+	if message == nil {
+		return nil
+	}
+	content := strings.TrimSpace(message.Content)
+	payload := strings.TrimSpace(message.Payload)
+	if payload != "" {
+		if content != "" {
+			content += "\n\n"
+		}
+		content += "以下是历史结构化数据，供后续对话引用：\n" + payload
+	}
+	return &ContextMessage{
+		Role:    message.Role,
+		Content: content,
+	}
+}
+
+func cloneMessages(messages []*ContextMessage) []*ContextMessage {
+	result := make([]*ContextMessage, 0, len(messages))
+	for _, message := range messages {
+		if message == nil {
+			continue
+		}
+		result = append(result, cloneMessage(message))
+	}
+	return result
+}
+
+func cloneMessage(message *ContextMessage) *ContextMessage {
+	if message == nil {
+		return nil
+	}
+	return &ContextMessage{
+		Role:    message.Role,
+		Content: message.Content,
+	}
 }

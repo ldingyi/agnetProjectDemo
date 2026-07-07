@@ -19,6 +19,7 @@ func main() {
 	ctx := context.Background()
 	application.InitEinoDev(ctx)
 
+	// 这个入口直接把 application.AgentChatService 注册为 Kitex handler，便于本地调试。
 	addr, err := net.ResolveTCPAddr("tcp", cfg.RPCAddr)
 	if err != nil {
 		log.Fatalf("resolve rpc addr: %v", err)

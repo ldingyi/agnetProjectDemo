@@ -9,7 +9,7 @@ import (
 	chat "agnet-project-demo/backend/kitex_gen/chat"
 )
 
-// AgentChatServiceImpl implements the last application interface defined in the IDL.
+// AgentChatServiceImpl 是 Kitex 生成接口与 application 服务之间的薄适配层。
 type AgentChatServiceImpl struct {
 	inner *application.AgentChatService
 }
@@ -49,9 +49,4 @@ func (s *AgentChatServiceImpl) GetSession(ctx context.Context, req *chat.GetSess
 // Login implements the AgentChatServiceImpl interface.
 func (s *AgentChatServiceImpl) Login(ctx context.Context, req *chat.LoginRequest) (resp *chat.LoginResponse, err error) {
 	return s.inner.Login(ctx, req)
-}
-
-// GetIMChatSummary implements the AgentChatServiceImpl interface.
-func (s *AgentChatServiceImpl) GetIMChatSummary(ctx context.Context, req *chat.IMChatSummaryRequest) (resp *chat.IMChatSummaryResponse, err error) {
-	return s.inner.GetIMChatSummary(ctx, req)
 }

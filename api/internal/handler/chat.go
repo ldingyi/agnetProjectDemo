@@ -145,15 +145,6 @@ func (h *ChatHandler) GetSession(ctx context.Context, c *app.RequestContext) {
 	c.JSON(consts.StatusOK, resp)
 }
 
-func (h *ChatHandler) GetIMChatSummary(ctx context.Context, c *app.RequestContext) {
-	resp, err := h.rpc.Chat().GetIMChatSummary(ctx, &chat.IMChatSummaryRequest{UserId: string(c.Query("user_id"))})
-	if err != nil {
-		c.JSON(consts.StatusInternalServerError, map[string]string{"error": "IM 聊天总结暂时不可用，请稍后再试。"})
-		return
-	}
-	c.JSON(consts.StatusOK, resp)
-}
-
 func RegisterRoutes(h *server.Hertz, chatHandler *ChatHandler) {
 	api := h.Group("/api")
 	api.POST("/login", chatHandler.Login)
@@ -162,7 +153,6 @@ func RegisterRoutes(h *server.Hertz, chatHandler *ChatHandler) {
 	api.POST("/sessions", chatHandler.CreateSession)
 	api.GET("/sessions", chatHandler.ListSessions)
 	api.GET("/sessions/:id", chatHandler.GetSession)
-	api.GET("/im/summary", chatHandler.GetIMChatSummary)
 }
 
 func Health(ctx context.Context, c *app.RequestContext) {

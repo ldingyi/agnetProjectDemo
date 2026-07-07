@@ -57,13 +57,6 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"GetIMChatSummary": kitex.NewMethodInfo(
-		getIMChatSummaryHandler,
-		newAgentChatServiceGetIMChatSummaryArgs,
-		newAgentChatServiceGetIMChatSummaryResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
 }
 
 var (
@@ -265,24 +258,6 @@ func newAgentChatServiceGetSessionResult() interface{} {
 	return chat.NewAgentChatServiceGetSessionResult()
 }
 
-func getIMChatSummaryHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*chat.AgentChatServiceGetIMChatSummaryArgs)
-	realResult := result.(*chat.AgentChatServiceGetIMChatSummaryResult)
-	success, err := handler.(chat.AgentChatService).GetIMChatSummary(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newAgentChatServiceGetIMChatSummaryArgs() interface{} {
-	return chat.NewAgentChatServiceGetIMChatSummaryArgs()
-}
-
-func newAgentChatServiceGetIMChatSummaryResult() interface{} {
-	return chat.NewAgentChatServiceGetIMChatSummaryResult()
-}
-
 type kClient struct {
 	c client.Client
 }
@@ -359,16 +334,6 @@ func (p *kClient) GetSession(ctx context.Context, req *chat.GetSessionRequest) (
 	_args.Req = req
 	var _result chat.AgentChatServiceGetSessionResult
 	if err = p.c.Call(ctx, "GetSession", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) GetIMChatSummary(ctx context.Context, req *chat.IMChatSummaryRequest) (r *chat.IMChatSummaryResponse, err error) {
-	var _args chat.AgentChatServiceGetIMChatSummaryArgs
-	_args.Req = req
-	var _result chat.AgentChatServiceGetIMChatSummaryResult
-	if err = p.c.Call(ctx, "GetIMChatSummary", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

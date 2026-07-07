@@ -17,6 +17,7 @@ func main() {
 	ctx := context.Background()
 	application.InitEinoDev(ctx)
 
+	// Kitex 服务只承载 AgentChatService，HTTP/SSE 转发由 api 模块负责。
 	addr, err := net.ResolveTCPAddr("tcp", cfg.RPCAddr)
 	if err != nil {
 		log.Fatalf("resolve rpc addr: %v", err)
