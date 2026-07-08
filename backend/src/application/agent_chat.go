@@ -19,7 +19,7 @@ import (
 )
 
 type AgentChatService struct {
-	agent         *agents.ChatModelAgent
+	agent         agents.ChatAgent
 	cfg           infrastructure.Config
 	thirdClient   thirdbusinessservice.Client
 	chatThreads   *chatthread.Manager
@@ -36,9 +36,9 @@ func NewAgentChatService(ctx context.Context, cfg infrastructure.Config) (*Agent
 	if err != nil {
 		return nil, fmt.Errorf("new third rpc client: %w", err)
 	}
-	chatAgent, err := agents.NewChatModelAgent(ctx, cfg)
+	chatAgent, err := agents.NewPlanExecuteAgent(ctx, cfg)
 	if err != nil {
-		return nil, fmt.Errorf("new chat model agents: %w", err)
+		return nil, fmt.Errorf("new plan execute agent: %w", err)
 	}
 
 	return &AgentChatService{
